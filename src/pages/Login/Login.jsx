@@ -9,6 +9,8 @@ const Login = () => {
     const {user} = useContext(GlobalContext)
     console.log(user);
 
+    console.log(import.meta.env.KEY);
+
     const [errorMsg, setErrorMsg] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
