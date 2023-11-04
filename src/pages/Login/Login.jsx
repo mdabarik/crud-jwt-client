@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { CiLogin } from "react-icons/ci";
 import { FcGoogle } from "react-icons/fc";
+import { GlobalContext } from "../../providers/GlobalProvider";
 
 
 const Login = () => {
+    const {user} = useContext(GlobalContext)
+    console.log(user);
 
     const [errorMsg, setErrorMsg] = useState('');
     const [email, setEmail] = useState('');
