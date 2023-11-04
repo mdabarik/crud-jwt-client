@@ -1,6 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
-import NavBar from "../../components/NavBar/NavBar";
-import Logo from "../../assets/logo.png";
+import NavBar from "../components/NavBar/NavBar";
+import Logo from "../assets/logo.png";
 
 const MainLayout = () => {
 
