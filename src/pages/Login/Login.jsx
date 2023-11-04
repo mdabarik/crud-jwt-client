@@ -21,7 +21,7 @@ const Login = () => {
     return (
         <div className="flex flex-col mt-[100px] items-center justify-center ">
             <div>
-                <h1 className="text-3xl uppercase">Login Now</h1>
+                <h1 className="text-3xl font-light normal-case">Login Now</h1>
             </div>
             <form onSubmit={handleLogin} className="mt-8 mb-2 w-[95%] md:w-[80%] lg:w-[60%]" autoComplete="off" >
                 <div className="mb-4 flex flex-col gap-6">

@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
+import Logo from "../../assets/logo.png";
 
 const MainLayout = () => {
 
@@ -15,7 +16,10 @@ const MainLayout = () => {
                         </label>
                     </div>
                     <div className="flex-1 px-2 mx-2">
-                        <Link to="/">Hotel Booking</Link>
+                        <Link className="flex items-center justify-center gap-4" to="/">
+                            <img className="h-[60px]" src={Logo} alt="Logo" />
+                            <span className="font-bold text-2xl">Hotel Booking</span>
+                        </Link>
                     </div>
                     <div className="flex-none hidden lg:block">
                         <ul className="menu menu-horizontal">
