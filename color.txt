@@ -1,2 +1,36 @@
 Button:
 px-3 py-2 bg-[#db332a] normal-case flex gap-1 text-white border-none hover:bg-[#b5100b]
+
+NavigationBG: white
+FooterBG: white
+Light Gray: #f5f5f5
+Beige: #f5f5dc
+Light Taupe: #eae0c8
+Off-White: #f8f8ff
+Pale Silver: #c0c0c0
+
+TextColor for white bg: 
+Black: #000000
+Dark Gray: #333333
+Charcoal: #444444
+Navy Blue: #001f3f
+Dark Brown: #3e2723
+Burgundy: #800000
+
+
+NavBG and FooterBG: black
+Light Gray: #f5f5f5
+Very Light Gray: #f2f2f2
+White: #ffffff
+Dark Gray: #333333
+Slightly Lighter Dark Gray: #666666
+
+TextColor for black bg:
+White: #ffffff
+Light Gray: #cccccc
+Light Blue: #ADD8E6
+Light Green: #90EE90
+Light Yellow: #FFFFE0
+Gold: #FFD700
+
+

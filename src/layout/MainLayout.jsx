@@ -30,8 +30,10 @@ const MainLayout = () => {
                     </div>
                 </div>
                 {/* Page content here */}
-                <div className="container mx-auto">
-                    <Outlet></Outlet>
+                <div className="bg-[#f8f8ff]">
+                    <div className="container mx-auto">
+                        <Outlet></Outlet>
+                    </div>
                 </div>
                 <footer>
                     <Footer></Footer>
