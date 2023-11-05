@@ -6,6 +6,8 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Rooms from "../pages/Rooms/Rooms";
 import Home from "../pages/Home/Home";
 import MyBooking from "../pages/MyBooking/MyBooking";
+import AddReview from "../pages/AddReview/AddReview";
+import EditReview from "../pages/EditReview/EditReview";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
             {
                 path: '/my-booking',
                 element: <MyBooking></MyBooking>
+            },
+            {
+                path: '/my-booking/review/add/:id',
+                element: <AddReview></AddReview>
+            },
+            {
+                path: '/my-booking/review/edit/:id',
+                element: <EditReview></EditReview>
             }
         ]
     },
