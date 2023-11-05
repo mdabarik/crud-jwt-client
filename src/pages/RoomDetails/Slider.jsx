@@ -1,9 +1,8 @@
 
-const Slider = ({slider}) => {
-    const { image } = slider || {};
+const Slider = ({slider: image}) => {
     return (
-        <div className="h-[500px] relative">
-            <img className="h-[500px] object-cover" src={image} alt="image" />
+        <div className="h-[500px] relative rounded-lg">
+            <img className="h-[500px] w-full object-cover rounded-lg" src={image} alt="image" />
         </div>
     );
 };

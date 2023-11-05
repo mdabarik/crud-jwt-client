@@ -18,21 +18,28 @@ import toast from "react-hot-toast";
 /** Rating **/
 import { Rating } from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
+import { useParams } from "react-router-dom";
+import useAxios from "../../hooks/useAxios";
 
 const RoomDetails = () => {
 
+    const axios = useAxios();
     const [value, setValue] = useState(dayjs(new Date()));
     const [sliders, setSliders] = useState([]);
-    console.log(value);
+    const [room, setRoom] = useState({});
+    const [rating, setRating] = useState(0);
+
+    const { id } = useParams();
 
     useEffect(() => {
-        fetch("http://localhost:5555/api/v1/sliders")
-            .then(res => res.json())
-            .then(data => {
-                setSliders(data);
-            })
-            .catch(() => {
-            })
+        axios.get(`/api/v1/rooms/${id}`)
+        .then(res => {
+            setSliders(res?.data?.room_images);
+            setRoom(res.data);
+            if (res?.data?.count_reviews != 0) {
+                setRating(parseFloat(res?.data?.count_stars/res?.data?.count_reviews).toFixed(2))
+            }
+        })
     }, []);
 
     const handleRoomBooking = (id) => {
@@ -43,13 +50,13 @@ const RoomDetails = () => {
     return (
         <div className="my-8">
             <div className="flex flex-col ">
-                <div className="flex flex-col items-center justify-center my-8">
-                    <h2 className="text-2xl font-bold text-center">Room Location: Los Angelos</h2>
+                <div className="flex flex-col items-center justify-center my-4">
+                    <h2 className="text-3xl font-semibold text-center">Location: {room?.room_location}</h2>
                     <p className="text-center text-sm mt-2">Check the details information of this room below</p>
                 </div>
-                <div className="flex border-2 h-[500px] my-8 w-full">
+                <div className="flex h-[500px] my-6 w-full">
                     <div className="w-1/2">
-                        <div className='h-[500px] border-2'>
+                        <div className='h-[500px]'>
                             <Swiper
                                 loop={true}
                                 spaceBetween={30}
@@ -67,7 +74,7 @@ const RoomDetails = () => {
                                 className="mySwiper"
                             >
                                 {
-                                    sliders.map(slider => {
+                                    sliders?.map((slider) => {
                                         return <SwiperSlide key={slider._id}>
                                             <Slider slider={slider}></Slider>
                                         </SwiperSlide>
@@ -76,32 +83,37 @@ const RoomDetails = () => {
                             </Swiper>
                         </div>
                     </div>
-                    <div className="flex-1 w-1/2 space-y-1  border-2 p-3">
-                        <h2 className="text-2xl font-bold">Cozy Single Room with Mountain View</h2>
-                        <h3>Price Night: $200</h3>
-                        <h3>Special Price:
-                            <strike>$200</strike>
-                            <span>$150</span>
+                    <div className="flex-1 w-1/2 space-y-1 px-5">
+                        <h2 className="text-2xl font-bold">{room?.room_description}</h2>
+                        <h3 className="font-semibold">Price Night: ${room?.price_per_night}</h3>
+                        <h3 className="flex items-center gap-x-2">
+                            <p className="font-semibold">Special Price:</p>
+                            <strike>${room?.price_per_night}</strike>
+                            <p>${parseInt( room?.price_per_night - (room?.special_offers/100)*room?.price_per_night )}</p>
+                            <p>({room.special_offers}% off)</p>
                         </h3>
-                        <p>Size: 400 sq ft</p>
-                        <div>
-                            <span>Status</span>
-                            <span>For status select date</span>
+                        <p><span className="font-semibold">Size:</span> 400 sq ft</p>
+                        <div className="flex items-center gap-x-2">
+                            <p className="font-semibold">Status:</p>
+                            <p className="bg-orange-200 text-red-600 px-3 py-1 rounded-lg">For status select date</p>
                         </div>
-                        <p>Location: <span>Lost, Angel, 11 Tower</span></p>
+                        <p><span className="font-bold">Location: </span> <span>Lost, Angel, 11 Tower</span></p>
                         <div className="flex items-center gap-3">
-                            <span>Rating</span>
+                            <span className="font-bold">Rating:</span>
                             <Rating
                                 className="py-2 rounded-lg "
                                 name="simple-controlled"
-                                value={2}
+                                value={rating}
                                 precision={0.5}
                                 emptyIcon={<StarIcon style={{ color: 'grey' }} fontSize="inherit" />}
                                 readOnly
                             />
-                            <span>(34 reviews)</span>
+                            <span>({room.count_reviews} reviews)</span>
                         </div>
-                        <p>Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea illum in quam temporibus cum obcaecati impedit ipsam corrupti, voluptas saepe provident sint cupiditate iure dolores voluptatem soluta molestias esse aliquam!</p>
+                        <p>
+                            <span className="font-bold">Description: </span>
+                            {room?.room_details}
+                        </p>
                         <div>
                             {/* DatePicker */}
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -115,7 +127,7 @@ const RoomDetails = () => {
                             </LocalizationProvider>
                         </div>
                         <div>
-                            <button onClick={() => handleRoomBooking(1)} className="btn btn-secondary">Book Now</button>
+                            <button onClick={() => handleRoomBooking(room?._id)} className="btn btn-secondary mt-2">Book Now</button>
                         </div>
                     </div>
                 </div>
