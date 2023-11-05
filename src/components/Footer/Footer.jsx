@@ -27,7 +27,7 @@ const Footer = () => {
         <div className="py-12 flex flex-col">
             <div className="flex flex-col items-center justify-center gap-y-3">
                 <img src={Logo} alt="Logo" />
-                <h2 className="text-2xl">Brand Shop</h2>
+                <h2 className="text-2xl">Hotel Booking</h2>
             </div>
             <div className="flex items-center justify-center gap-4 mt-4 link">
                 {footerLinks}

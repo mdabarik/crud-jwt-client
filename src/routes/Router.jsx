@@ -8,6 +8,7 @@ import Home from "../pages/Home/Home";
 import MyBooking from "../pages/MyBooking/MyBooking";
 import AddReview from "../pages/AddReview/AddReview";
 import EditReview from "../pages/EditReview/EditReview";
+import RoomDetails from "../pages/RoomDetails/RoomDetails";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: '/rooms',
                 element: <Rooms></Rooms>
+            },
+            {
+                path: '/rooms/:id',
+                element: <RoomDetails></RoomDetails>
             },
             {
                 path: '/my-booking',
