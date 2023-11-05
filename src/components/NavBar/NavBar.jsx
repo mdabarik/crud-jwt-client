@@ -12,9 +12,6 @@ const NavBar = () => {
                 <NavLink to="/rooms">Rooms</NavLink>
             </li>
             <li>
-                <NavLink to="/booking">Booking</NavLink>
-            </li>
-            <li>
                 <NavLink to="/my-booking">My Booking</NavLink>
             </li>
             <li>
