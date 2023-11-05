@@ -1,0 +1,270 @@
+[{
+  "_id": {
+    "$oid": "65464f14983645b8af9a7605"
+  },
+  "room_id": 1,
+  "room_description": "Cozy Single Room with Mountain View",
+  "price_per_night": 80,
+  "room_size": "250 sq ft",
+  "availability": true,
+  "room_images": [
+    "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1631049035182-249067d7618e?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1521783988139-89397d761dce?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fHw%3D"
+  ],
+  "special_offers": 10
+},
+{
+  "_id": {
+    "$oid": "65464f14983645b8af9a7606"
+  },
+  "room_id": 2,
+  "room_description": "Spacious Double Room with Garden View",
+  "price_per_night": 120,
+  "room_size": "350 sq ft",
+  "availability": true,
+  "room_images": [
+    "https://images.unsplash.com/photo-1631049552240-59c37f38802b?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8"
+  ],
+  "special_offers": 15
+},
+{
+  "_id": {
+    "$oid": "65464f14983645b8af9a7607"
+  },
+  "room_id": 3,
+  "room_description": "Modern Twin Room with City Skyline View",
+  "price_per_night": 100,
+  "room_size": "300 sq ft",
+  "availability": false,
+  "room_images": [
+    "https://images.unsplash.com/photo-1631049552240-59c37f38802b?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8"
+  ],
+  "special_offers": null
+},
+{
+  "_id": {
+    "$oid": "65464f14983645b8af9a7608"
+  },
+  "room_id": 4,
+  "room_description": "Deluxe King Room with Pool Access",
+  "price_per_night": 150,
+  "room_size": "400 sq ft",
+  "availability": true,
+  "room_images": [
+    "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8"
+  ],
+  "special_offers": 0
+},
+{
+  "_id": {
+    "$oid": "65464f14983645b8af9a7609"
+  },
+  "room_id": 5,
+  "room_description": "Family Suite with Private Balcony",
+  "price_per_night": 200,
+  "room_size": "500 sq ft",
+  "availability": true,
+  "room_images": [
+    "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8"
+  ],
+  "special_offers": 25
+},
+{
+  "_id": {
+    "$oid": "65464f14983645b8af9a760a"
+  },
+  "room_id": 6,
+  "room_description": "Luxury Suite with Ocean View",
+  "price_per_night": 250,
+  "room_size": "600 sq ft",
+  "availability": false,
+  "room_images": [
+    "https://images.unsplash.com/photo-1631049552240-59c37f38802b?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8"
+  ],
+  "special_offers": 20
+},
+{
+  "_id": {
+    "$oid": "65464f14983645b8af9a760b"
+  },
+  "room_id": 7,
+  "room_description": "Rustic Cottage with Fireplace",
+  "price_per_night": 180,
+  "room_size": "400 sq ft",
+  "availability": true,
+  "room_images": [
+    "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8"
+  ],
+  "special_offers": 30
+},
+{
+  "_id": {
+    "$oid": "65464f14983645b8af9a760c"
+  },
+  "room_id": 8,
+  "room_description": "Historic Mansion with Garden",
+  "price_per_night": 300,
+  "room_size": "700 sq ft",
+  "availability": true,
+  "room_images": [
+    "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8"
+  ],
+  "special_offers": 5
+},
+{
+  "_id": {
+    "$oid": "65464f14983645b8af9a760d"
+  },
+  "room_id": 9,
+  "room_description": "Sunny Beach House with Pool",
+  "price_per_night": 220,
+  "room_size": "600 sq ft",
+  "availability": true,
+  "room_images": [
+    "https://images.unsplash.com/photo-1631049552240-59c37f38802b?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8",
+    "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8"
+  ],
+  "special_offers": 12
+}]
+
+
+
+
+
+
+
+[
+  {
+    "room_id": 1,
+    "room_description": "Cozy Single Room with Mountain View",
+    "price_per_night": 80,
+    "room_size": "250 sq ft",
+    "availability": true,
+    "room_images": [
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1631049035182-249067d7618e?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1521783988139-89397d761dce?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fHw%3D"
+    ],
+    "special_offers": 10,
+    "count_reviews": 0,
+    "count_stars": 0,
+    "room_details": "Experience the ultimate comfort in our cozy single room with a breathtaking mountain view. This 250 sq ft room offers a serene atmosphere, perfect for relaxation after a day of exploration. The room features a comfortable bed, modern amenities, and soothing decor, ensuring a pleasant stay. Enjoy the beauty of nature from your window and unwind in a tranquil ambiance. Ideal for solo travelers seeking a peaceful retreat.",
+    "room_location": "Mountain View Street",
+    "room_street_address": "123 Mountain View Street"
+  },
+  {
+    "room_id": 2,
+    "room_description": "Spacious Double Room with Garden View",
+    "price_per_night": 120,
+    "room_size": "350 sq ft",
+    "availability": true,
+    "room_images": [
+      "https://images.unsplash.com/photo-1631049552240-59c37f38802b?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8",
+      "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8",
+      "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8"
+    ],
+    "special_offers": 15,
+    "count_reviews": 0,
+    "count_stars": 0,
+    "room_details": "Indulge in luxury with our spacious double room featuring a charming garden view. With 350 sq ft of space, this room offers ample room for relaxation and leisure. The elegant decor, comfortable furnishings, and modern amenities create a delightful ambiance for your stay. Enjoy the serenity of the garden from your window and unwind in style. Ideal for couples and travelers looking for a serene getaway amidst nature.",
+    "room_location": "Garden View Lane",
+    "room_street_address": "456 Garden View Lane"
+  },
+  {
+    "room_id": 3,
+    "room_description": "Modern Twin Room with City Skyline View",
+    "price_per_night": 100,
+    "room_size": "300 sq ft",
+    "availability": false,
+    "room_images": [
+      "https://images.unsplash.com/photo-1631049552240-59c37f38802b?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8",
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8",
+      "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8"
+    ],
+    "special_offers": 20,
+    "count_reviews": 0,
+    "count_stars": 0,
+    "room_details": "Immerse yourself in the modern elegance of our twin room with a captivating city skyline view. With 300 sq ft of space, this room offers a stylish and comfortable environment for your stay. The room features contemporary furnishings, sleek design, and panoramic views of the cityscape. Although currently unavailable, this room promises a luxurious experience once it reopens. Perfect for travelers seeking a chic urban retreat.",
+    "room_location": "City View Avenue",
+    "room_street_address": "789 City View Avenue"
+  },
+  {
+    "room_id": 4,
+    "room_description": "Deluxe King Room with Pool Access",
+    "price_per_night": 150,
+    "room_size": "400 sq ft",
+    "availability": true,
+    "room_images": [
+      "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8",
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8",
+      "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8"
+    ],
+    "special_offers": 0,
+    "count_reviews": 0,
+    "count_stars": 0,
+    "room_details": "Luxuriate in our deluxe king room with exclusive pool access. Spanning 400 sq ft, this room offers opulent furnishings, a spacious layout, and direct access to the pool area. Immerse yourself in sheer comfort, from the plush king-size bed to the stylish decor. Enjoy refreshing swims and sun-soaked relaxation just steps away from your room. Perfect for discerning guests seeking the pinnacle of indulgence and leisure.",
+    "room_location": "Poolside Paradise Lane",
+    "room_street_address": "101 Poolside Paradise Lane"
+  },
+  {
+    "room_id": 5,
+    "room_description": "Family Suite with Private Balcony",
+    "price_per_night": 200,
+    "room_size": "500 sq ft",
+    "availability": true,
+    "room_images": [
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8",
+      "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8",
+      "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8"
+    ],
+    "special_offers": 25,
+    "count_reviews": 0,
+    "count_stars": 0,
+    "room_details": "Indulge in spacious luxury with our family suite featuring a private balcony. This 500 sq ft suite offers ample space for families or groups. The suite includes separate sleeping areas, a cozy living space, and a private balcony with scenic views. Enjoy quality time with your loved ones in the comfort of your own suite. The suite is meticulously designed for families seeking a home away from home, providing both privacy and togetherness.",
+    "room_location": "Balcony View Boulevard",
+    "room_street_address": "789 Balcony View Boulevard"
+  },
+  {
+    "room_id": 6,
+    "room_description": "Luxury Suite with Ocean View",
+    "price_per_night": 250,
+    "room_size": "600 sq ft",
+    "availability": false,
+    "room_images": [
+      "https://images.unsplash.com/photo-1631049552240-59c37f38802b?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8",
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8",
+      "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8"
+    ],
+    "special_offers": 20,
+    "count_reviews": 0,
+    "count_stars": 0,
+    "room_details": "Elevate your stay with our luxurious ocean-view suite. Spanning 600 sq ft, this suite offers breathtaking views of the ocean, creating a serene and enchanting atmosphere. Indulge in the epitome of elegance with carefully curated furnishings, a spacious living area, and a private balcony overlooking the waves. While currently unavailable, this suite promises an unparalleled experience upon reopening. Ideal for travelers seeking a lavish retreat with unparalleled vistas.",
+    "room_location": "Oceanfront Avenue",
+    "room_street_address": "101 Oceanfront Avenue"
+  },
+  {
+    "room_id": 7,
+    "room_description": "Rustic Cottage with Fireplace",
+    "price_per_night": 180,
+    "room_size": "400 sq ft",
+    "availability": true,
+    "room_images": [
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHx8",
+      "https://images.unsplash.com/photo-1648668425549-84b695d2ec2a?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8",
+      "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?auto=format&fit=crop&q=
