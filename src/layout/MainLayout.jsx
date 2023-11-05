@@ -30,7 +30,9 @@ const MainLayout = () => {
                     </div>
                 </div>
                 {/* Page content here */}
-                <Outlet></Outlet>
+                <div className="container mx-auto">
+                    <Outlet></Outlet>
+                </div>
                 <footer>
                     <Footer></Footer>
                 </footer>
