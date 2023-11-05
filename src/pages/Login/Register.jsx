@@ -21,7 +21,7 @@ const Register = () => {
     }
 
     return (
-        <div className="flex flex-col mt-[100px] items-center justify-center ">
+        <div className="flex flex-col my-[100px] items-center justify-center ">
             <div>
                 <h1 className="text-3xl font-light normal-case">Register for New Account</h1>
             </div>
@@ -38,6 +38,9 @@ const Register = () => {
                     </div>
                     <div className="relative h-11 w-full min-w-[200px]">
                         <input onChange={e => setConfirmPassword(e.target.value)} type="password" placeholder="Confirm Password" className="w-full px-4 py-2 rounded-md bg-transparent outline-none border-[1px]" required />
+                    </div>
+                    <div className="relative h-11 w-full min-w-[200px]">
+                        <input  type="file" className="w-full px-4 py-2 rounded-md bg-transparent outline-none border-[1px]" required />
                     </div>
                 </div>
                 <div className="inline-flex items-center">
