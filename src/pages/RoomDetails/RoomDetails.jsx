@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { useEffect, useState } from "react";
 import Slider from "./Slider";
+import { AiOutlineComment } from 'react-icons/ai';
 
 /**** DatePicker *****/
 import dayjs from 'dayjs';
@@ -20,8 +21,9 @@ import StarIcon from '@mui/icons-material/Star';
 
 const RoomDetails = () => {
 
-    const [value, setValue] = useState(dayjs('2022-04-17'));
+    const [value, setValue] = useState(dayjs(new Date()));
     const [sliders, setSliders] = useState([]);
+    console.log(value);
 
     useEffect(() => {
         fetch("http://localhost:5555/api/v1/sliders")
@@ -106,7 +108,7 @@ const RoomDetails = () => {
                                 <DemoContainer components={['DatePicker', 'DatePicker']}>
                                     <DatePicker
                                         label="Select Date"
-                                        value={value}
+                                        // value={value}
                                         onChange={(newValue) => setValue(newValue)}
                                     />
                                 </DemoContainer>
@@ -119,13 +121,70 @@ const RoomDetails = () => {
                 </div>
             </div>
             {/* Reviews Sections */}
-            <div className="border-2 h-[400px] my-8">
+            <div className="my-8">
                 <div>
-                    <h2>Reviews</h2>
+                    <h2 className="text-3xl font-semibold">Reviews</h2>
                     <p>Check the review from our previous customer</p>
                 </div>
-                <div>
-                    Review Card/caraousal
+                <div className="my-3 space-y-5">
+                    {/* single comment */}
+                    <div className="bg-white drop-shadow-md rounded-lg space-y-3 p-8">
+                        <div className="flex items-center gap-x-4">
+                            <div className="h-[100px] w-[100px] rounded-full bg-black">
+                                {/* image */}
+                            </div>
+                            <div className="flex flex-col">
+                                <h3>Md. A. Barik</h3>
+                                <p>Date: 10 Oct 2023</p>
+                                <div>
+                                    <Rating
+                                        className="rounded-lg "
+                                        name="simple-controlled"
+                                        value={2}
+                                        precision={0.5}
+                                        emptyIcon={<StarIcon style={{ color: 'grey' }} fontSize="inherit" />}
+                                        readOnly
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <AiOutlineComment className="text-3xl inline-block mr-4"></AiOutlineComment>
+                            <span>I booked this room at 20/10/23. It was really amazing and beautiful experience.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam mollitia animi tempora perspiciatis hic error voluptatibus rerum, voluptatem quisquam sunt labore cum? Expedita sapiente, obcaecati quisquam corrupti exercitationem nostrum amet earum, necessitatibus, unde similique vitae blanditiis tempore explicabo repellat. Necessitatibus sunt facere ex voluptate quos accusantium quia tempore labore, odit architecto ipsam voluptas minus voluptatibus facilis at praesentium deserunt tempora. Nam facere doloribus labore obcaecati unde nobis ipsa rem eaque! Sed commodi et quod quo minima nulla soluta facere cum nam officia. Numquam expedita necessitatibus, fugit repellendus ipsa exercitationem dolor ut. Sint qui cumque animi optio eos! Provident iure deleniti optio necessitatibus suscipit, distinctio dignissimos similique minus autem, temporibus quo nesciunt dolore ut qui ad ipsam non voluptas sunt vel, nemo deserunt sit. Nulla quod dolorum error, ducimus laudantium aperiam dicta voluptates odio commodi quaerat sapiente blanditiis pariatur vel! Ab accusamus et consectetur, nam atque molestias corporis necessitatibus, omnis nulla qui aut asperiores dolorem enim tempore consequuntur perspiciatis impedit? Molestiae cumque laboriosam veritatis soluta eum. Ipsum laborum, omnis adipisci mollitia suscipit numquam optio molestias, corrupti, labore tenetur itaque voluptatum. Minus dolorem asperiores voluptatem deserunt eos labore! Accusamus dolore dolores velit eligendi soluta deleniti, non rerum quasi asperiores eveniet itaque consequuntur.
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div className="bg-white drop-shadow-md rounded-lg space-y-3 p-8">
+                        <div className="flex items-center gap-x-4">
+                            <div className="h-[100px] w-[100px] rounded-full bg-black">
+                                {/* image */}
+                            </div>
+                            <div className="flex flex-col">
+                                <h3>Md. A. Barik</h3>
+                                <p>Date: 10 Oct 2023</p>
+                                <div>
+                                    <Rating
+                                        className="rounded-lg "
+                                        name="simple-controlled"
+                                        value={2}
+                                        precision={0.5}
+                                        emptyIcon={<StarIcon style={{ color: 'grey' }} fontSize="inherit" />}
+                                        readOnly
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <AiOutlineComment className="text-3xl inline-block mr-4"></AiOutlineComment>
+                            <span>I booked this room at 20/10/23. It was really amazing and beautiful experience.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam mollitia animi tempora perspiciatis hic error voluptatibus rerum, voluptatem quisquam sunt labore cum? Expedita sapiente, obcaecati quisquam corrupti exercitationem nostrum amet earum, necessitatibus, unde similique vitae blanditiis tempore explicabo repellat. Necessitatibus sunt facere ex voluptate quos accusantium quia tempore labore, odit architecto ipsam voluptas minus voluptatibus facilis at praesentium deserunt tempora. Nam facere doloribus labore obcaecati unde nobis ipsa rem eaque! Sed commodi et quod quo minima nulla soluta facere cum nam officia. Numquam expedita necessitatibus, fugit repellendus ipsa exercitationem dolor ut. Sint qui cumque animi optio eos! Provident iure deleniti optio necessitatibus suscipit, distinctio dignissimos similique minus autem, temporibus quo nesciunt dolore ut qui ad ipsam non voluptas sunt vel, nemo deserunt sit. Nulla quod dolorum error, ducimus laudantium aperiam dicta voluptates odio commodi quaerat sapiente blanditiis pariatur vel! Ab accusamus et consectetur, nam atque molestias corporis necessitatibus, omnis nulla qui aut asperiores dolorem enim tempore consequuntur perspiciatis impedit? Molestiae cumque laboriosam veritatis soluta eum. Ipsum laborum, omnis adipisci mollitia suscipit numquam optio molestias, corrupti, labore tenetur itaque voluptatum. Minus dolorem asperiores voluptatem deserunt eos labore! Accusamus dolore dolores velit eligendi soluta deleniti, non rerum quasi asperiores eveniet itaque consequuntur.
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

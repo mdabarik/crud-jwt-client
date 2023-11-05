@@ -5,6 +5,7 @@ import { BsYoutube } from "react-icons/bs";
 import { BsFacebook } from "react-icons/bs";
 
 const Footer = () => {
+
     const footerLinks = <>
         <Link to="/">Home</Link>
         <Link to="/rooms">Rooms</Link>
