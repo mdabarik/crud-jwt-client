@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { CiLogin } from "react-icons/ci";
+import "./NavBar.css";
 
 const NavBar = () => {
     return (
