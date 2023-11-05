@@ -8,7 +8,7 @@ const instance = axios.create({
 const useAxios = () => {
     instance.interceptors.response.use(
         (response) => {
-            response
+            return response
         },
         (error) => {
             if (error.response.status == 401 || error.response.status == 403) {
