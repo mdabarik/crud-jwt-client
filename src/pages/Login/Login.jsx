@@ -1,26 +1,51 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { CiLogin } from "react-icons/ci";
 import { FcGoogle } from "react-icons/fc";
 import { GlobalContext } from "../../providers/GlobalProvider";
+import toast from "react-hot-toast";
+import useAxios from "../../hooks/useAxios";
 
 
 const Login = () => {
-    const {user} = useContext(GlobalContext)
-    console.log(user);
-
-    console.log(import.meta.env.KEY);
-
-    const [errorMsg, setErrorMsg] = useState('');
+    const { user, loading, setLoading, googleSignIn } = useContext(GlobalContext)
+    const [errorMsg, setErrorMsg] = useState(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    console.log('location, login', location);
+
+    if (loading) {
+        return <p>Loading...</p>
+    }
+
+    if (user) {
+        navigate('/');
+        return;
+    }
 
     const handleLogin = () => {
         console.log(email, password);
     }
 
-    const handleGoogleSignedIn = () => {
-        console.log('handle google sign in');
+    const handleGoogleSignedIn = async () => {
+        googleSignIn()
+            .then(res => {
+                console.log(res, 'res');
+                // jwt token
+                useAxios.post('/jwt', { email: user?.email, name: user?.displayName })
+                    .then(response => {
+                        console.log(response.data, 'axios');
+                    })
+
+                toast.success('Google SignIn Successfull')
+                navigate('/');
+            })
+            .catch(err => {
+                setErrorMsg(err.code);
+            })
     }
 
     return (
@@ -58,6 +83,15 @@ const Login = () => {
                         className="font-medium text-[#db332a] transition-colors hover:underline hover:text-blue-700">
                         Register now
                     </Link>
+                </div>
+
+                <div>
+                    {
+                        !errorMsg ? "" :
+                            <p className="font-bold text-center text-2xl text-red-600">
+                                {errorMsg}
+                            </p>
+                    }
                 </div>
 
             </form>

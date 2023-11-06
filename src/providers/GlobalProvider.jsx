@@ -10,30 +10,27 @@ const provider = new GoogleAuthProvider();
 
 const GlobalProvider = ({children}) => {
 
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState();
     const [loading, setLoading] = useState(true);
     const googleSignIn = () => {
-        setLoading(true);
         return signInWithPopup(firebaseAuth, provider);
     }
 
     const loginUser = (email, password) => {
-        setLoading(true);
         return signInWithEmailAndPassword(firebaseAuth, email, password);
     }
 
     const registerUser = (email, password) => {
-        setLoading(true);
         return createUserWithEmailAndPassword(firebaseAuth, email, password);
     }
 
     const logOut = () => {
-        setLoading(true);
         return signOut(firebaseAuth);
     }
 
     const info = {
         loading,
+        setLoading,
         user,
         googleSignIn,
         loginUser,
@@ -43,12 +40,10 @@ const GlobalProvider = ({children}) => {
 
     useEffect(()=> {
         const unsubscribe = onAuthStateChanged(firebaseAuth, currUser => {
-            setUser(currUser);
             setLoading(false);
+            setUser(currUser);
         })
-        return () => {
-            return unsubscribe();
-        }
+        return () => unsubscribe();
     }, [])
     
     return (

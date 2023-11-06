@@ -9,6 +9,7 @@ import MyBooking from "../pages/MyBooking/MyBooking";
 import AddReview from "../pages/AddReview/AddReview";
 import EditReview from "../pages/EditReview/EditReview";
 import RoomDetails from "../pages/RoomDetails/RoomDetails";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -30,26 +31,26 @@ const router = createBrowserRouter([
             },
             {
                 path: '/my-booking',
-                element: <MyBooking></MyBooking>
+                element: <PrivateRoute><MyBooking></MyBooking></PrivateRoute>
             },
             {
                 path: '/my-booking/review/add/:id',
-                element: <AddReview></AddReview>
+                element: <PrivateRoute><AddReview></AddReview></PrivateRoute>
             },
             {
                 path: '/my-booking/review/edit/:id',
-                element: <EditReview></EditReview>
+                element: <PrivateRoute><EditReview></EditReview></PrivateRoute>
+            },
+            {
+                path: '/login',
+                element: <Login></Login>
+            },
+            {
+                path: '/register',
+                element: <Register></Register>
             }
         ]
     },
-    {
-        path: '/login',
-        element: <Login></Login>
-    },
-    {
-        path: '/register',
-        element: <Register></Register>
-    }
 ])
 
 export default router;

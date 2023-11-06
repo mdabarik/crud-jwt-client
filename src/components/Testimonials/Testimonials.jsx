@@ -12,7 +12,7 @@ const Testimonials = () => {
 
     const [testimonials, setTestimonials] = useState([]);
     useEffect(() => {
-        fetch("https://brand-shop-server-e61d5nzmg-mdabarik.vercel.app/teams")
+        fetch("http://localhost:5555/api/v1/reviews")
             .then(res => res.json())
             .then(data => {
                 setTestimonials(data);

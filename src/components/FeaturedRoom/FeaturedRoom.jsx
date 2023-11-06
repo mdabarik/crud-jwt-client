@@ -1,5 +1,22 @@
+import { useEffect, useState } from "react";
+import useAxios from "../../hooks/useAxios";
+import RoomCard from "../RoomCard/RoomCard";
 
 const FeaturedRoom = () => {
+    const axios = useAxios();
+    const [rooms, setRooms] = useState([]);
+
+    useEffect(() => {
+        // http://localhost:5555/api/v1/rooms?filterByPrice=0-100&sortField=price_per_night&sortOrder=asc
+        const url = `/api/v1/rooms?filterByPrice=0-1000&sortField=price_per_night&sortOrder=desc`;
+        console.log(url);
+        axios.get(url)
+            .then(res => {
+                setRooms(res.data.splice(0, 4));
+            })
+    }, [])
+
+
     return (
         <div className="my-8">
             {/* Rooms */}
@@ -9,11 +26,9 @@ const FeaturedRoom = () => {
                     <p className="text-center">Get the best deals and suitable affordable rooms</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div className="max-w-[300px] h-[200px] bg-gray-400"></div>
-                    <div className="max-w-[300px] h-[200px] bg-gray-400"></div>
-                    <div className="max-w-[300px] h-[200px] bg-gray-400"></div>
-                    <div className="max-w-[300px] h-[200px] bg-gray-400"></div>
-                    <div className="max-w-[300px] h-[200px] bg-gray-400"></div>
+                    {
+                        rooms.map(room => <RoomCard room={room} key={room._id}></RoomCard>)
+                    }
                 </div>
             </div>
         </div>
