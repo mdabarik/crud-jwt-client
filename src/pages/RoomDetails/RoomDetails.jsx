@@ -3,7 +3,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Slider from "./Slider";
 import { AiOutlineComment } from 'react-icons/ai';
 
@@ -19,8 +19,8 @@ import moment from "moment";
 
 /**** Modal ****/
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import { GlobalContext } from "../../providers/GlobalProvider";
 
 const RoomDetails = () => {
 
@@ -50,6 +50,7 @@ const RoomDetails = () => {
         p: 4,
     };
 
+    const { user } = useContext(GlobalContext);
 
     useEffect(() => {
         axios.get(`/api/v1/rooms/${id}`)
@@ -65,7 +66,43 @@ const RoomDetails = () => {
 
 
 
+
     const handleRoomBooking = () => {
+
+        // const currentTime = moment(new Date()); // Current time
+        // const futureTime = moment(validation); // A future time to compare with, replace it with your desired time
+
+        // if (currentTime.isBefore(futureTime, 'day')) {
+        //     console.log('valid');
+        // } else if (currentTime.isSame(futureTime, 'day')) {
+        //     console.log('valid');
+        // } else {
+        //     console.log('invalid');
+        //     toast.error("Oh, Sorry! Invalid date.");
+        //     setDisabled(true)
+        // }
+
+        const discountPrice = parseInt(room?.price_per_night - (room?.special_offers / 100) * room?.price_per_night);
+        const bookingInfo = {
+            roomId: id,
+            roomDescription: room.room_description,
+            pricePerNight: discountPrice,
+            bookingDate: sDate,
+            userEmail: user?.email,
+            userName: user?.displayName,
+            roomImage: sliders[0]
+        }
+        axios.post('/api/v1/booking', bookingInfo)
+            .then(res => {
+                if (res.data.insertedId) {
+                    toast.success('Successfully booked');
+                    setDisabled(true)
+                    setAvailable('notavailable')
+                }
+            })
+    }
+
+    const handleDateChange = (date) => {
 
         const currentTime = moment(new Date()); // Current time
         const futureTime = moment(validation); // A future time to compare with, replace it with your desired time
@@ -76,26 +113,12 @@ const RoomDetails = () => {
             console.log('valid');
         } else {
             console.log('invalid');
+            setDisabled(true)
+            setAvailable("notavailable");
+            return;
         }
 
-        const email = 'mdabarik19@gmail.com';
-        const bookingInfo = {
-            roomId: id,
-            roomDescription: room.room_description,
-            pricePerNight: room.price_per_night,
-            bookingDate: sDate,
-            userEmail: email,
-            roomImage: ""
-        }
-        axios.post('/api/v1/booking', bookingInfo)
-            .then(res => {
-                if (res.data.insertedId) {
-                    toast.success('Successfully booked');
-                }
-            })
-    }
 
-    const handleDateChange = (date) => {
         console.log(date);
         setSDate(date);
         setAvailable('notavailable');
@@ -169,7 +192,7 @@ const RoomDetails = () => {
                             <p className="font-semibold">Status:</p>
                             <p className="px-3 py-1 rounded-lg">
                                 {
-                                    available == 'notavailable' ? <span className="bg-[orangered] px-3 py-1 text-[white]">For status select date</span> :
+                                    available == 'notavailable' ? <span className="bg-[orangered] px-3 py-1 text-[white]">For status select valid date</span> :
                                         <span className="bg-red-500 text-white font-bold px-3 py-1">{available}</span>
                                 }
                             </p>

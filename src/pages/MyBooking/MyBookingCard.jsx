@@ -16,9 +16,12 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useEffect } from "react";
 import { useContext } from "react";
 import { GlobalContext } from "../../providers/GlobalProvider";
+import { Link } from "react-router-dom";
 
 
 const MyBookingCard = ({card}) => {
+
+    const {roomId, roomDescription, pricePerNight, bookingDate, roomImage, userEmail} = card || {};
 
     const { user } = useContext(GlobalContext);
     const [value, setValue] = useState(dayjs('2022-04-17'));
@@ -63,19 +66,19 @@ const MyBookingCard = ({card}) => {
             }
         })
     }
-
+    // /my-booking/review/add/:id
 
     return (
         <div className="flex flex-col items-center justify-between md:flex-row border-[1.5px] rounded-lg p-3 shadow-lg">
             <div className="flex gap-6">
                 <div className="h-[200px] w-[300px] bg-gray-400 rounded-lg" >
-                    {/* img tag */}
+                    <img className="h-[200px] w-[300px] rounded-lg" src={roomImage} alt="room img" />
                 </div>
                 <div className="space-y-3">
-                    <h3 className="text-2xl">Deluxe King Room with Proof Access</h3>
-                    <p>Price(One Night): $120</p>
-                    <p>Booking date: 12 Dec 2023</p>
-                    <button className="btn btn-primary">Write a Review</button>
+                    <h3 className="text-2xl">{roomDescription}</h3>
+                    <p>Price(One Night): ${pricePerNight}</p>
+                    <p>Booking date: {bookingDate}</p>
+                    <Link to={`/my-booking/review/add/${roomId}`} className="btn btn-primary">Write a Review</Link>
                 </div>
             </div>
             <div className="space-y-4">
