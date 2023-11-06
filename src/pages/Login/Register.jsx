@@ -1,31 +1,101 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CiLogin } from "react-icons/ci";
 import { FcGoogle } from "react-icons/fc";
+import { useContext } from "react";
+import { GlobalContext } from "../../providers/GlobalProvider";
+import { updateProfile } from "firebase/auth";
+import toast from "react-hot-toast";
 import useAxios from "../../hooks/useAxios";
 
-
 const Register = () => {
-    const axios = useAxios();
+    const { user, registerUser, logOut, loginUser } = useContext(GlobalContext);
+    const navigate = useNavigate();
+    const { googleSignIn } = useContext(GlobalContext);
+
+    if (user !== null) {
+        navigate("/");
+        return;
+    }
 
     const [errorMsg, setErrorMsg] = useState('');
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [photoURL, setPhotoURL] = useState('')
 
     const handleRegister = (e) => {
         e.preventDefault();
-        console.log(email, password);
-        axios.post('/jwt', {email: email})
-        .then(res => {
-            console.log(res.data);
-        })
+        // reset error
+        setErrorMsg("");
+        // validation
+        if (password !== confirmPassword) {
+            setErrorMsg("Password and confirm password doesn't match")
+            return;
+        } else if (password.length < 6) {
+            setErrorMsg("Password must contains 6 or more characters");
+            return;
+        } else if (!/[A-Z]/.test(password)) {
+            setErrorMsg("Password must contains at least 1 uppercase letter")
+            return;
+        } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            setErrorMsg("Password must contain at least 1 special character")
+            return;
+        }
+
+        registerUser(email, password)
+            .then(userCredential => {
+                const user = userCredential.user;
+                toast.success("Registration successfull.")
+
+                updateProfile(user, {
+                    displayName: userName,
+                    photoURL: photoURL,
+                    reloadUserInfo: {
+                        photoUrl: photoURL
+                    }
+                })
+
+                logOut();
+                loginUser(email, password)
+                    .then(userCred => {
+                        console.log(userCred.user);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            })
+            .catch(error => {
+                if (error.code === "auth/email-already-in-use") {
+                    setErrorMsg("Email already exists");
+                } else {
+                    setErrorMsg(error.code);
+                }
+            })
+
     }
 
-    const handleGoogleSignedIn = () => {
-        console.log('handle google signin');
+
+    const handleGoogleSignedIn = async () => {
+        googleSignIn()
+            .then(res => {
+                console.log(res, 'res');
+                // jwt token
+                useAxios.post('/jwt', { email: user?.email, name: user?.displayName })
+                    .then(response => {
+                        console.log(response.data, 'axios');
+                    })
+
+                toast.success('Google SignIn Successfull')
+                navigate('/');
+            })
+            .catch(err => {
+                setErrorMsg(err.code);
+            })
     }
+
+
 
     return (
         <div className="flex flex-col my-[100px] items-center justify-center ">
@@ -47,7 +117,7 @@ const Register = () => {
                         <input onChange={e => setConfirmPassword(e.target.value)} type="password" placeholder="Confirm Password" className="w-full px-4 py-2 rounded-md bg-transparent outline-none border-[1px]" required />
                     </div>
                     <div className="relative h-11 w-full min-w-[200px]">
-                        <input  type="file" className="w-full px-4 py-2 rounded-md bg-transparent outline-none border-[1px]" required />
+                        <input onChange={(e) => setPhotoURL(e.target.value)} type="text" placeholder="Enter photo url" className="w-full px-4 py-2 rounded-md bg-transparent outline-none border-[1px]" required />
                     </div>
                 </div>
                 <div className="inline-flex items-center">
@@ -56,7 +126,7 @@ const Register = () => {
                         <span className="label-text ml-3">Accept terms & conditions</span>
                     </label>
                 </div>
-                <button onClick={handleRegister} className="mt-6 flex items-center justify-center w-full bg-[#db332a] py-3 px-6 text-center  text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit" data-ripple-light="true">
+                <button type="submit" className="mt-6 flex items-center justify-center w-full bg-[#db332a] py-3 px-6 text-center  text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit" data-ripple-light="true">
                     <CiLogin className="text-xl"></CiLogin>
                     <span className="ml-3">Register Now</span>
                 </button>
@@ -74,7 +144,7 @@ const Register = () => {
                 </div>
 
             </form>
-            <div onClick={handleGoogleSignedIn} className="flex hover:cursor-pointer flex-row items-center justify-center rounded-full border-[1px] p-1 px-5 mt-4 bg-[#9CA3AF95]">
+            <div onClick={() => handleGoogleSignedIn()} className="flex hover:cursor-pointer flex-row items-center justify-center rounded-full border-[1px] p-1 px-5 mt-4 bg-[#9CA3AF95]">
                 <FcGoogle className="text-4xl"></FcGoogle>
                 <span className="ml-3">Sign in with Google</span>
             </div>

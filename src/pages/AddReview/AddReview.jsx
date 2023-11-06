@@ -56,9 +56,16 @@ const AddReview = () => {
             console.log(res);
             if (res.data.upsertedCount) {
                 toast.success('Your review added successfully.')
+
             } else {
                 toast.success("Updated succfully")
             }
+
+            axios.patch(`/update-room/${params.id}`, {rating})
+            .then(res => {
+                console.log(res.data);
+            })
+
         })
     }
 
@@ -81,8 +88,8 @@ const AddReview = () => {
 
                     <div className="form-control flex items-center justify-center">
                         <div className="avatar">
-                            <div className=" rounded">
-                                <img className="w-[100px] h-[100px]" src={user?.photoURL} alt="photo" />
+                            <div className="rounded">
+                                <img className="max-w-[100px] h-[100px]" src={user?.photoURL} alt="photo" />
                             </div>
                         </div>
                     </div>
@@ -96,18 +103,18 @@ const AddReview = () => {
                     </div>
                     <div className="form-control">
                         <label htmlFor="email" className="label">Your Profession</label>
-                        <input value={profession} onChange={e => setProfession(e.target.value)} required type="text" id="profession" placeholder="Your profession" className="input input-bordered  dark:text-black" />
+                        <input value={profession || ''} onChange={e => setProfession(e.target.value)} required type="text" id="profession" placeholder="Your profession" className="input input-bordered  dark:text-black" />
                     </div>
                     <div className="form-control">
                         <label htmlFor="feedback" className="label"> Your Review</label>
-                        <textarea value={review} onChange={(e) => setReview(e.target.value)} required className="textarea textarea-bordered h-24  dark:text-black" id="feedback" placeholder="Write your feedback"></textarea>
+                        <textarea value={review || ''} onChange={(e) => setReview(e.target.value)} required className="textarea textarea-bordered h-24  dark:text-black" id="feedback" placeholder="Write your feedback"></textarea>
                     </div>
                     <div className="form-control my-3 space-y-2 ">
                         <Typography className="pl-1" component="legend">Rating</Typography>
                         <Rating
                             className="bg-white py-2 px-2 rounded-lg"
                             name="simple-controlled"
-                            value={value}
+                            value={value || 0}
                             onChange={(event, newValue) => {
                                 setValue(newValue);
                             }}

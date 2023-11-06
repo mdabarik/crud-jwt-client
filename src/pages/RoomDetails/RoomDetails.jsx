@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 /** Rating **/
 import { Rating } from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import moment from "moment";
 
@@ -21,8 +21,10 @@ import moment from "moment";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { GlobalContext } from "../../providers/GlobalProvider";
+import ReviewCard from "./ReviewCard";
 
 const RoomDetails = () => {
+
 
     const axios = useAxios();
     const [sliders, setSliders] = useState([]);
@@ -63,7 +65,19 @@ const RoomDetails = () => {
             })
     }, []);
 
+    const params = useParams();
+    console.log(params);
 
+    const [reviews, setReviews] = useState([]);
+    useEffect(() => {
+        // userEmail=mdabarik19@gmail.com&roomId=65480a5e9b625d184f24e99d
+        fetch(`http://localhost:5555/reviews/${params.id}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            setReviews(data)
+        })
+    }, [])
 
 
 
@@ -130,7 +144,7 @@ const RoomDetails = () => {
                 setAvailable(`Sorry not available at: ${date}`)
                 if (res.result.length == 0) {
                     setAvailable(`Available on ${date}`)
-                    toast.success(`Available on ${date}`)
+                    // toast.success(`Available on ${date}`)
                     setDisabled(false)
                     console.log('correct');
                 }
@@ -242,12 +256,14 @@ const RoomDetails = () => {
                                 </Modal>
                                 {/* <Button className="btn btn-primary" onClick={handleOpen}>Book Now</Button> */}
                                 {
+                                    !user ? <Link className="btn btn-error" to="/login">Login to Book</Link> :
                                     disabled == true ?
                                         <button className="btn w-1/2 mt-2" title="select date to enable" disabled>Book Now</button>
                                         :
                                         <button onClick={() => {
                                             handleOpen()
                                         }} className="btn w-1/2 btn-secondary mt-2">Book Now</button>
+
                                 }
                             </div>
 
@@ -259,68 +275,16 @@ const RoomDetails = () => {
             {/* Reviews Sections */}
             <div className="my-8">
                 <div>
-                    <h2 className="text-3xl font-semibold">Reviews</h2>
+                    <h2 className="text-3xl font-semibold">Reviews: {reviews.length}</h2>
                     <p>Check the review from our previous customer</p>
                 </div>
                 <div className="my-3 space-y-5">
                     {/* single comment */}
-                    <div className="bg-white drop-shadow-md rounded-lg space-y-3 p-8">
-                        <div className="flex items-center gap-x-4">
-                            <div className="h-[100px] w-[100px] rounded-full bg-black">
-                                {/* image */}
-                            </div>
-                            <div className="flex flex-col">
-                                <h3>Md. A. Barik</h3>
-                                <p>Date: 10 Oct 2023</p>
-                                <div>
-                                    <Rating
-                                        className="rounded-lg "
-                                        name="simple-controlled"
-                                        value={2}
-                                        precision={0.5}
-                                        emptyIcon={<StarIcon style={{ color: 'grey' }} fontSize="inherit" />}
-                                        readOnly
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                    {
+                        reviews.map(card => <ReviewCard key={card._id} card={card}></ReviewCard>)
+                    }
 
-                        <div>
-                            <AiOutlineComment className="text-3xl inline-block mr-4"></AiOutlineComment>
-                            <span>I booked this room at 20/10/23. It was really amazing and beautiful experience.
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam mollitia animi tempora perspiciatis hic error voluptatibus rerum, voluptatem quisquam sunt labore cum? Expedita sapiente, obcaecati quisquam corrupti exercitationem nostrum amet earum, necessitatibus, unde similique vitae blanditiis tempore explicabo repellat. Necessitatibus sunt facere ex voluptate quos accusantium quia tempore labore, odit architecto ipsam voluptas minus voluptatibus facilis at praesentium deserunt tempora. Nam facere doloribus labore obcaecati unde nobis ipsa rem eaque! Sed commodi et quod quo minima nulla soluta facere cum nam officia. Numquam expedita necessitatibus, fugit repellendus ipsa exercitationem dolor ut. Sint qui cumque animi optio eos! Provident iure deleniti optio necessitatibus suscipit, distinctio dignissimos similique minus autem, temporibus quo nesciunt dolore ut qui ad ipsam non voluptas sunt vel, nemo deserunt sit. Nulla quod dolorum error, ducimus laudantium aperiam dicta voluptates odio commodi quaerat sapiente blanditiis pariatur vel! Ab accusamus et consectetur, nam atque molestias corporis necessitatibus, omnis nulla qui aut asperiores dolorem enim tempore consequuntur perspiciatis impedit? Molestiae cumque laboriosam veritatis soluta eum. Ipsum laborum, omnis adipisci mollitia suscipit numquam optio molestias, corrupti, labore tenetur itaque voluptatum. Minus dolorem asperiores voluptatem deserunt eos labore! Accusamus dolore dolores velit eligendi soluta deleniti, non rerum quasi asperiores eveniet itaque consequuntur.
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className="bg-white drop-shadow-md rounded-lg space-y-3 p-8">
-                        <div className="flex items-center gap-x-4">
-                            <div className="h-[100px] w-[100px] rounded-full bg-black">
-                                {/* image */}
-                            </div>
-                            <div className="flex flex-col">
-                                <h3>Md. A. Barik</h3>
-                                <p>Date: 10 Oct 2023</p>
-                                <div>
-                                    <Rating
-                                        className="rounded-lg "
-                                        name="simple-controlled"
-                                        value={2}
-                                        precision={0.5}
-                                        emptyIcon={<StarIcon style={{ color: 'grey' }} fontSize="inherit" />}
-                                        readOnly
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <AiOutlineComment className="text-3xl inline-block mr-4"></AiOutlineComment>
-                            <span>I booked this room at 20/10/23. It was really amazing and beautiful experience.
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam mollitia animi tempora perspiciatis hic error voluptatibus rerum, voluptatem quisquam sunt labore cum? Expedita sapiente, obcaecati quisquam corrupti exercitationem nostrum amet earum, necessitatibus, unde similique vitae blanditiis tempore explicabo repellat. Necessitatibus sunt facere ex voluptate quos accusantium quia tempore labore, odit architecto ipsam voluptas minus voluptatibus facilis at praesentium deserunt tempora. Nam facere doloribus labore obcaecati unde nobis ipsa rem eaque! Sed commodi et quod quo minima nulla soluta facere cum nam officia. Numquam expedita necessitatibus, fugit repellendus ipsa exercitationem dolor ut. Sint qui cumque animi optio eos! Provident iure deleniti optio necessitatibus suscipit, distinctio dignissimos similique minus autem, temporibus quo nesciunt dolore ut qui ad ipsam non voluptas sunt vel, nemo deserunt sit. Nulla quod dolorum error, ducimus laudantium aperiam dicta voluptates odio commodi quaerat sapiente blanditiis pariatur vel! Ab accusamus et consectetur, nam atque molestias corporis necessitatibus, omnis nulla qui aut asperiores dolorem enim tempore consequuntur perspiciatis impedit? Molestiae cumque laboriosam veritatis soluta eum. Ipsum laborum, omnis adipisci mollitia suscipit numquam optio molestias, corrupti, labore tenetur itaque voluptatum. Minus dolorem asperiores voluptatem deserunt eos labore! Accusamus dolore dolores velit eligendi soluta deleniti, non rerum quasi asperiores eveniet itaque consequuntur.
-                            </span>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

@@ -20,8 +20,10 @@ import { Link } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 
 
+
 const MyBookingCard = ({card, myBooking, setMyBooking}) => {
     const axios = useAxios();
+    const [selDate, setSelDate] = useState("");
 
     const {_id, roomId, roomDescription, pricePerNight, bookingDate, roomImage, userEmail} = card || {};
 
@@ -42,10 +44,33 @@ const MyBookingCard = ({card, myBooking, setMyBooking}) => {
         p: 4,
     };
 
-    console.log(card);
+    console.log(selDate);
 
-    const handleUpdateDate = (id) => {
-        toast.success('Updated successfully!')
+
+    
+    const handleUpdateDate = () => {
+        const newDate = selDate;
+        console.log(newDate);
+        const id = _id;
+        fetch("http://localhost:5555/update-date", {
+            method: 'PATCH',
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({newDate, userEmail, id})
+        })
+        .then(response => response.json())
+        .then(res => {
+            if (res.modifiedCount > 0) {
+                toast.success("Updated successfully")
+            }
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+
+        // toast.success('Updated successfully!')
     }
 
     const handleCancel = (id) => {
@@ -60,7 +85,6 @@ const MyBookingCard = ({card, myBooking, setMyBooking}) => {
             confirmButtonText: 'Confirm'
         }).then((result) => {
             if (result.isConfirmed) {
-                
                 // http://localhost:5555/api/v1/review/delete?userEmail=mdabarik19@gmail.com&roomId=141808iufofjaldkfjh
                 fetch(`http://localhost:5555/delete-review/${_id}`, {
                     method: 'DELETE'
@@ -70,11 +94,8 @@ const MyBookingCard = ({card, myBooking, setMyBooking}) => {
                     console.log(res);
                     if (res.deletedCount > 0) {
                         toast.success('Deleted successfully');
-
                         const filter = myBooking.filter(book => book._id != _id);
                         setMyBooking(filter)
-
-
                     }   
                 })
 
@@ -91,7 +112,7 @@ const MyBookingCard = ({card, myBooking, setMyBooking}) => {
                     <img className="h-[200px] w-[300px] rounded-lg" src={roomImage} alt="room img" />
                 </div>
                 <div className="space-y-3">
-                    <h3 className="text-2xl">{roomDescription}</h3>
+                    <Link to={`/rooms/${roomId}`} className="text-2xl">{roomDescription}</Link>
                     <p>Price(One Night): ${pricePerNight}</p>
                     <p>Booking date: {bookingDate}</p>
                     <Link to={`/my-booking/review/add/${roomId}`} className="btn btn-primary">Your Review</Link>
@@ -108,15 +129,7 @@ const MyBookingCard = ({card, myBooking, setMyBooking}) => {
                         <div className="flex flex-col space-y-5 my-10">
                             <h2 className="text-2xl font-bold text-center">Update Booking Date</h2>
                             <div>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DemoContainer components={['DatePicker', 'DatePicker']}>
-                                        <DatePicker
-                                            label="Update Date"
-                                            value={value}
-                                            onChange={(newValue) => setValue(newValue)}
-                                        />
-                                    </DemoContainer>
-                                </LocalizationProvider>
+                                <input onChange={(e) => setSelDate(e.target.value + "")} type="date" />
                             </div>
                             <button onClick={() => handleUpdateDate()} className="btn btn-secondary text-center">Update Date</button>
                         </div>

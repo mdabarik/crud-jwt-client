@@ -8,7 +8,7 @@ import useAxios from "../../hooks/useAxios";
 
 
 const Login = () => {
-    const { user, loading, setLoading, googleSignIn } = useContext(GlobalContext)
+    const { user, loading, setLoading, googleSignIn, loginUser } = useContext(GlobalContext)
     const [errorMsg, setErrorMsg] = useState(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -26,8 +26,17 @@ const Login = () => {
         return;
     }
 
-    const handleLogin = () => {
-        console.log(email, password);
+    const handleLogin = (e) => {
+        e.preventDefault();
+        setErrorMsg("");
+        loginUser(email, password)
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            setErrorMsg(err.code);
+        })
+        
     }
 
     const handleGoogleSignedIn = async () => {
@@ -68,7 +77,7 @@ const Login = () => {
                         <span className="label-text ml-3">Accept terms & conditions</span>
                     </label>
                 </div>
-                <button className="mt-6 flex items-center justify-center w-full bg-[#db332a] py-3 px-6 text-center  text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit" data-ripple-light="true">
+                <button type="submit" className="mt-6 flex items-center justify-center w-full bg-[#db332a] py-3 px-6 text-center  text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit" data-ripple-light="true">
                     <CiLogin className="text-xl"></CiLogin>
                     <span className="ml-3">Login</span>
                 </button>
@@ -76,6 +85,14 @@ const Login = () => {
                 {
                     errorMsg ? <h2 className="text-center text-red-700 text-sm mt-2">{errorMsg}</h2> : ""
                 }
+                {/* <div>
+                    {
+                        !errorMsg ? "" :
+                            <p className="font-bold text-center text-2xl text-red-600">
+                                {errorMsg}
+                            </p>
+                    }
+                </div> */}
 
                 <div className="mt-4 block text-center font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
                     <span className="mr-2">Don not have an account?</span>
@@ -83,15 +100,6 @@ const Login = () => {
                         className="font-medium text-[#db332a] transition-colors hover:underline hover:text-blue-700">
                         Register now
                     </Link>
-                </div>
-
-                <div>
-                    {
-                        !errorMsg ? "" :
-                            <p className="font-bold text-center text-2xl text-red-600">
-                                {errorMsg}
-                            </p>
-                    }
                 </div>
 
             </form>
