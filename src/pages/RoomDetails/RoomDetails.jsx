@@ -26,17 +26,18 @@ const RoomDetails = () => {
     const [available, setAvailable] = useState(false);
     const [sDate, setSDate] = useState("");
     const { id } = useParams();
-    
+    const [ validation, setValidation ] = useState(moment(new Date()))
+
 
 
     const handleDateChange = (date) => {
         console.log(date);
         setSDate(date);
         fetch(`http://localhost:5555/api/v1/booking?date=${date}&id=${id}`)
-        .then(r => r.json())
-        .then(res => {
-            console.log(res);
-        })
+            .then(r => r.json())
+            .then(res => {
+                console.log(res);
+            })
     }
 
 
@@ -52,9 +53,20 @@ const RoomDetails = () => {
     }, []);
 
 
-    
+
 
     const handleRoomBooking = () => {
+
+        const currentTime = moment(new Date()); // Current time
+        const futureTime = moment(validation); // A future time to compare with, replace it with your desired time
+
+        if (currentTime.isBefore(futureTime, 'day')) {
+            console.log('valid');
+        } else if (currentTime.isSame(futureTime, 'day')) {
+            console.log('valid');
+        } else {
+            console.log('invalid');
+        }
 
         const email = 'mdabarik19@gmail.com';
         const bookingInfo = {
@@ -150,7 +162,7 @@ const RoomDetails = () => {
                         </div>
                         <input className="border-2 p-3 rounded-md" onChange={(e) => {
                             handleDateChange(e.target.value)
-                            
+                            setValidation(e.target.value)
                         }
                         } type="date" />
                     </div>
