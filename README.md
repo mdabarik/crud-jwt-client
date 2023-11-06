@@ -13,6 +13,7 @@
 - user can edit the booking date
 - Room details page
 - Testimonials on home page
+- User can post their review after booking
 - User can signup for newsletter on home page
 - About us page
 - Our team member page
