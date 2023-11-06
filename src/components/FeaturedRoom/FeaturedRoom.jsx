@@ -9,7 +9,6 @@ const FeaturedRoom = () => {
     useEffect(() => {
         // http://localhost:5555/api/v1/rooms?filterByPrice=0-100&sortField=price_per_night&sortOrder=asc
         const url = `/api/v1/rooms?filterByPrice=0-1000&sortField=price_per_night&sortOrder=desc`;
-        console.log(url);
         axios.get(url)
             .then(res => {
                 setRooms(res.data.splice(0, 4));
