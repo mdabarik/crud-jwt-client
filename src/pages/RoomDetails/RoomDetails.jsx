@@ -8,11 +8,6 @@ import Slider from "./Slider";
 import { AiOutlineComment } from 'react-icons/ai';
 
 /**** DatePicker *****/
-import dayjs from 'dayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import toast from "react-hot-toast";
 
 /** Rating **/
@@ -20,31 +15,62 @@ import { Rating } from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
 import { useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
+import moment from "moment";
 
 const RoomDetails = () => {
 
     const axios = useAxios();
-    const [value, setValue] = useState(dayjs(new Date()));
     const [sliders, setSliders] = useState([]);
     const [room, setRoom] = useState({});
     const [rating, setRating] = useState(0);
-
+    const [available, setAvailable] = useState(false);
+    const [sDate, setSDate] = useState("");
     const { id } = useParams();
+    
+
+
+    const handleDateChange = (date) => {
+        console.log(date);
+        setSDate(date);
+        fetch(`http://localhost:5555/api/v1/booking?date=${date}&id=${id}`)
+        .then(r => r.json())
+        .then(res => {
+            console.log(res);
+        })
+    }
+
 
     useEffect(() => {
         axios.get(`/api/v1/rooms/${id}`)
-        .then(res => {
-            setSliders(res?.data?.room_images);
-            setRoom(res.data);
-            if (res?.data?.count_reviews != 0) {
-                setRating(parseFloat(res?.data?.count_stars/res?.data?.count_reviews).toFixed(2))
-            }
-        })
+            .then(res => {
+                setSliders(res?.data?.room_images);
+                setRoom(res.data);
+                if (res?.data?.count_reviews != 0) {
+                    setRating(parseFloat(res?.data?.count_stars / res?.data?.count_reviews).toFixed(2))
+                }
+            })
     }, []);
 
-    const handleRoomBooking = (id) => {
-        console.log(id);
-        toast.success("Booked successfully");
+
+    
+
+    const handleRoomBooking = () => {
+
+        const email = 'mdabarik19@gmail.com';
+        const bookingInfo = {
+            roomId: id,
+            roomDescription: room.room_description,
+            pricePerNight: room.price_per_night,
+            bookingDate: sDate,
+            userEmail: email,
+            roomImage: ""
+        }
+        axios.post('/api/v1/booking', bookingInfo)
+            .then(res => {
+                if (res.data.insertedId) {
+                    toast.success('Successfully booked');
+                }
+            })
     }
 
     return (
@@ -74,9 +100,9 @@ const RoomDetails = () => {
                                 className="mySwiper"
                             >
                                 {
-                                    sliders?.map((slider) => {
-                                        return <SwiperSlide key={slider._id}>
-                                            <Slider slider={slider}></Slider>
+                                    sliders?.map((slider, index) => {
+                                        return <SwiperSlide key={index}>
+                                            <Slider key={slider._id} slider={slider}></Slider>
                                         </SwiperSlide>
                                     })
                                 }
@@ -89,13 +115,18 @@ const RoomDetails = () => {
                         <h3 className="flex items-center gap-x-2">
                             <p className="font-semibold">Special Price:</p>
                             <strike>${room?.price_per_night}</strike>
-                            <p>${parseInt( room?.price_per_night - (room?.special_offers/100)*room?.price_per_night )}</p>
+                            <p>${parseInt(room?.price_per_night - (room?.special_offers / 100) * room?.price_per_night)}</p>
                             <p>({room.special_offers}% off)</p>
                         </h3>
                         <p><span className="font-semibold">Size:</span> 400 sq ft</p>
                         <div className="flex items-center gap-x-2">
                             <p className="font-semibold">Status:</p>
-                            <p className="bg-orange-200 text-red-600 px-3 py-1 rounded-lg">For status select date</p>
+                            <p className="px-3 py-1 rounded-lg">
+                                {
+                                    available == false ? <span className="bg-[orangered] px-3 py-1 text-[white]">For status select date</span> :
+                                        <span className="bg-red-500 text-white font-bold px-3 py-1">Available Book Now</span>
+                                }
+                            </p>
                         </div>
                         <p><span className="font-bold">Location: </span> <span>Lost, Angel, 11 Tower</span></p>
                         <div className="flex items-center gap-3">
@@ -115,20 +146,13 @@ const RoomDetails = () => {
                             {room?.room_details}
                         </p>
                         <div>
-                            {/* DatePicker */}
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DemoContainer components={['DatePicker', 'DatePicker']}>
-                                    <DatePicker
-                                        label="Select Date"
-                                        // value={value}
-                                        onChange={(newValue) => setValue(newValue)}
-                                    />
-                                </DemoContainer>
-                            </LocalizationProvider>
-                        </div>
-                        <div>
                             <button onClick={() => handleRoomBooking(room?._id)} className="btn btn-secondary mt-2">Book Now</button>
                         </div>
+                        <input className="border-2 p-3 rounded-md" onChange={(e) => {
+                            handleDateChange(e.target.value)
+                            
+                        }
+                        } type="date" />
                     </div>
                 </div>
             </div>
@@ -168,7 +192,7 @@ const RoomDetails = () => {
                             </span>
                         </div>
                     </div>
-                    
+
                     <div className="bg-white drop-shadow-md rounded-lg space-y-3 p-8">
                         <div className="flex items-center gap-x-4">
                             <div className="h-[100px] w-[100px] rounded-full bg-black">
