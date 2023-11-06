@@ -30,7 +30,7 @@ const MyBooking = () => {
                 <h1 className="text-2xl font-bold text-center mb-4">My Booking</h1>
                 <div>
                     {
-                        myBooking.map(card => <MyBookingCard card={card} key={card._id}></MyBookingCard>)
+                        myBooking.map(card => <MyBookingCard setMyBooking={setMyBooking} myBooking={myBooking} card={card} key={card._id}></MyBookingCard>)
                     }
                 </div>
             </div>

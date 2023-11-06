@@ -17,11 +17,13 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { GlobalContext } from "../../providers/GlobalProvider";
 import { Link } from "react-router-dom";
+import useAxios from "../../hooks/useAxios";
 
 
-const MyBookingCard = ({card}) => {
+const MyBookingCard = ({card, myBooking, setMyBooking}) => {
+    const axios = useAxios();
 
-    const {roomId, roomDescription, pricePerNight, bookingDate, roomImage, userEmail} = card || {};
+    const {_id, roomId, roomDescription, pricePerNight, bookingDate, roomImage, userEmail} = card || {};
 
     const { user } = useContext(GlobalContext);
     const [value, setValue] = useState(dayjs('2022-04-17'));
@@ -40,6 +42,8 @@ const MyBookingCard = ({card}) => {
         p: 4,
     };
 
+    console.log(card);
+
     const handleUpdateDate = (id) => {
         toast.success('Updated successfully!')
     }
@@ -56,12 +60,24 @@ const MyBookingCard = ({card}) => {
             confirmButtonText: 'Confirm'
         }).then((result) => {
             if (result.isConfirmed) {
-                //   Swal.fire(
-                //     'Deleted!',
-                //     'Your file has been deleted.',
-                //     'success'
-                //   )
-                toast.success('Successfully deleted!')
+                
+                // http://localhost:5555/api/v1/review/delete?userEmail=mdabarik19@gmail.com&roomId=141808iufofjaldkfjh
+                fetch(`http://localhost:5555/delete-review/${_id}`, {
+                    method: 'DELETE'
+                })
+                .then(r => r.json())
+                .then(res => {
+                    console.log(res);
+                    if (res.deletedCount > 0) {
+                        toast.success('Deleted successfully');
+
+                        const filter = myBooking.filter(book => book._id != _id);
+                        setMyBooking(filter)
+
+
+                    }   
+                })
+
 
             }
         })
@@ -78,7 +94,7 @@ const MyBookingCard = ({card}) => {
                     <h3 className="text-2xl">{roomDescription}</h3>
                     <p>Price(One Night): ${pricePerNight}</p>
                     <p>Booking date: {bookingDate}</p>
-                    <Link to={`/my-booking/review/add/${roomId}`} className="btn btn-primary">Write a Review</Link>
+                    <Link to={`/my-booking/review/add/${roomId}`} className="btn btn-primary">Your Review</Link>
                 </div>
             </div>
             <div className="space-y-4">
