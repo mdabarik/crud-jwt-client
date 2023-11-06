@@ -17,28 +17,38 @@ import { useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import moment from "moment";
 
+/**** Modal ****/
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+
 const RoomDetails = () => {
 
     const axios = useAxios();
     const [sliders, setSliders] = useState([]);
     const [room, setRoom] = useState({});
     const [rating, setRating] = useState(0);
-    const [available, setAvailable] = useState(false);
+    const [available, setAvailable] = useState('notavailable');
     const [sDate, setSDate] = useState("");
     const { id } = useParams();
-    const [ validation, setValidation ] = useState(moment(new Date()))
+    const [validation, setValidation] = useState(moment(new Date()))
+    const [disabled, setDisabled] = useState(true);
 
-
-
-    const handleDateChange = (date) => {
-        console.log(date);
-        setSDate(date);
-        fetch(`http://localhost:5555/api/v1/booking?date=${date}&id=${id}`)
-            .then(r => r.json())
-            .then(res => {
-                console.log(res);
-            })
-    }
+    // modal
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
 
 
     useEffect(() => {
@@ -84,6 +94,30 @@ const RoomDetails = () => {
                 }
             })
     }
+
+    const handleDateChange = (date) => {
+        console.log(date);
+        setSDate(date);
+        setAvailable('notavailable');
+        setDisabled(true);
+        fetch(`http://localhost:5555/api/v1/booking?date=${date}&id=${id}`)
+            .then(response => response.json())
+            .then(res => {
+                console.log(res);
+                setAvailable(`Sorry not available at: ${date}`)
+                if (res.result.length == 0) {
+                    setAvailable(`Available on ${date}`)
+                    toast.success(`Available on ${date}`)
+                    setDisabled(false)
+                    console.log('correct');
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+    }
+
 
     return (
         <div className="my-8">
@@ -135,8 +169,8 @@ const RoomDetails = () => {
                             <p className="font-semibold">Status:</p>
                             <p className="px-3 py-1 rounded-lg">
                                 {
-                                    available == false ? <span className="bg-[orangered] px-3 py-1 text-[white]">For status select date</span> :
-                                        <span className="bg-red-500 text-white font-bold px-3 py-1">Available Book Now</span>
+                                    available == 'notavailable' ? <span className="bg-[orangered] px-3 py-1 text-[white]">For status select date</span> :
+                                        <span className="bg-red-500 text-white font-bold px-3 py-1">{available}</span>
                                 }
                             </p>
                         </div>
@@ -157,14 +191,45 @@ const RoomDetails = () => {
                             <span className="font-bold">Description: </span>
                             {room?.room_details}
                         </p>
-                        <div>
-                            <button onClick={() => handleRoomBooking(room?._id)} className="btn btn-secondary mt-2">Book Now</button>
-                        </div>
                         <input className="border-2 p-3 rounded-md" onChange={(e) => {
                             handleDateChange(e.target.value)
                             setValidation(e.target.value)
                         }
                         } type="date" />
+                        <div>
+                            <div className="space-y-4">
+                                <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                >
+                                    <Box sx={style}>
+                                        <div className="flex flex-col space-y-5 my-10">
+                                            <h2 className="text-2xl font-bold text-center">Confirm/Cancel(Click Outsite to cancel)</h2>
+                                            <div>
+                                                <h2>{room.room_description}</h2>
+                                                <h3>Pricing: {room.price_per_night}</h3>
+                                                <p>Booking date: {sDate}</p>
+                                            </div>
+                                            <button onClick={() => handleRoomBooking()} className="btn btn-secondary text-center">Confirm Booking</button>
+                                        </div>
+
+                                    </Box>
+                                </Modal>
+                                {/* <Button className="btn btn-primary" onClick={handleOpen}>Book Now</Button> */}
+                                {
+                                    disabled == true ?
+                                        <button className="btn w-1/2 mt-2" title="select date to enable" disabled>Book Now</button>
+                                        :
+                                        <button onClick={() => {
+                                            handleOpen()
+                                        }} className="btn w-1/2 btn-secondary mt-2">Book Now</button>
+                                }
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
