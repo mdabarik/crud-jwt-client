@@ -29,14 +29,14 @@ const Testimonials = () => {
     }, []);
 
     return (
-        <div className="my-10" data-aos="zoom-in">
+        <div className="my-10 mx-auto" data-aos="zoom-in">
             {/* Rooms */}
             <div className="my-8">
                 <div className="flex flex-col items-center justify-center my-4">
                     <h2 className="text-2xl font-bold text-center">User Testimonials</h2>
                     <p className="text-center">Check the testimonials mad by our customers</p>
                 </div>
-                <div className="pb-8 w-[90vw] md:w-[100vw] container">
+                <div className="pb-8">
                     <Swiper
                         slidesPerView={2}
                         loop={true}

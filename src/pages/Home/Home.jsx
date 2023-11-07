@@ -25,7 +25,7 @@ const Home = () => {
                 <div className="lg:max-w-[1280px] mx-auto">
                 <Sliders></Sliders>
                 </div>
-                <div className="md:w-[80%] lg:max-w-[1280px] mx-auto">
+                <div className="md:w-[80%] lg:w-[100%] lg:max-w-[1280px] mx-auto">
                     <NewsLetter></NewsLetter>
                     <FeaturedRoom></FeaturedRoom>
                     <Testimonials></Testimonials>

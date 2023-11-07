@@ -10,14 +10,15 @@ const MainLayout = () => {
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col">
                 {/* Navbar */}
-                <div className="w-full navbar bg-white drop-shadow-md">
+                <div className="w-[100vw] navbar bg-white drop-shadow-md">
+                    <div className="flex items-center justify-between w-full lg:w-[1280px] mx-auto">
                     <div className="flex-none lg:hidden">
                         <label htmlFor="my-drawer-3" aria-label="open sidebar" className="btn btn-square btn-ghost">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                         </label>
                     </div>
                     <div className="flex-1 px-2 mx-2">
-                        <Link className="flex items-center justify-center gap-4" to="/">
+                        <Link className="flex items-center justify-start gap-4" to="/">
                             <img className="h-[46px]" src={Logo} alt="Logo" />
                             <span className="font-bold md:text-2xl">Hotel Booking</span>
                         </Link>
@@ -27,6 +28,7 @@ const MainLayout = () => {
                             {/* Navbar menu content here */}
                             <NavBar></NavBar>
                         </ul>
+                    </div>
                     </div>
                 </div>
                 {/* Page content here */}
