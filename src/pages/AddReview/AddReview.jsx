@@ -21,12 +21,24 @@ const AddReview = () => {
     const [exist, setExist] = useState(false);
     const params = useParams();
     console.log(params);
+    const [countReviews, setCountReviews] = useState(0);
+    const [countStars, setCountStars] = useState(0);
+
+    useEffect(() => {
+        axios.get(`/api/v1/rooms/${params.id}`)
+        .then(res => {
+            console.log('api/v1/rooms',res?.data);
+            setCountReviews(res?.data?.count_reviews)
+            setCountStars(res?.data?.count_stars)
+            console.log(countReviews, countStars);
+        })
+    }, [])
 
     useEffect(() => {
         axios.get(`/api/v1/singlereview?userEmail=${user?.email}&roomId=${params.id}`, { withCredentials: true })
             .then(res => {
                 const data = res.data;
-                setValue(data[0].rating)
+                setValue(parseFloat(data[0]?.rating).toFixed(2))
                 setReview(data[0].review)
 
                 setProfession(data[0].profession)
@@ -41,6 +53,11 @@ const AddReview = () => {
 
     const handleAddReview = (e) => {
         e.preventDefault();
+
+        if (value == 0) {
+            setErrorMessage('Please select rating');
+            return;
+        }
         const rating = value;
         const userName = user?.displayName;
         const photoURL = user?.photoURL;
@@ -57,21 +74,35 @@ const AddReview = () => {
             roomId,
             profession
         }
-        axios.put('/api/v1/add-review', info, { withCredentials: true })
+        axios.post('/api/v1/add-review', info, { withCredentials: true })
             .then(res => {
                 console.log(res);
-                if (res.data.upsertedCount) {
+                if (res.data?.insertedId) {
                     toast.success('Your review added successfully.')
                     setExist(true)
 
                 } else {
-                    toast.success("Updated succfully")
+                    toast.error("Something went wrong")
                 }
+            })
 
-                axios.patch(`/update-room/${params.id}`, { rating })
-                    .then(res => {
-                        console.log(res.data);
-                    })
+            
+
+        axios.patch(`/update-room/${params.id}`, {rating})
+        .then(res => {
+            console.log(res?.data);
+        })
+
+        axios.put('/api/v1/add-review', info, { withCredentials: true })
+            .then(res => {
+                console.log(res);
+                if (res?.data?.upsertedCount) {
+                    toast.success('Your review added successfully.')
+                    setExist(true)
+
+                } else {
+                    // toast.success("Updated succfully")
+                }
 
             })
     }
@@ -89,12 +120,9 @@ const AddReview = () => {
             </div>
             <div className="flex items-center justify-center mt-8">
                 <form onSubmit={handleAddReview} className="w-[90%] md:w-[60%]">
-                    {
-                        errorMessage == "" ? "" :
-                            <div className="alert alert-error flex items-center justify-center">
-                                <span>Error: {errorMessage}</span>
-                            </div>
-                    }
+
+
+
 
                     <div className="form-control flex items-center justify-center">
                         <div className="avatar">
@@ -132,15 +160,24 @@ const AddReview = () => {
                         />
                     </div>
 
+
+
                     {/* /my-booking/review/add/${roomId} */}
-                    {
-                        exist ?
-                            <Link to={`/my-booking/review/edit/${params.id}`} className="btn btn-full w-full text-white bg-[orange] hover:bg-[#ffb731] hover:border-[orange] border-[orange] normal-case text-lg mt-3">Go To Edit Page</Link>
-                            :
-                            <div className="form-control">
-                                <input type="submit" className="btn btn-full w-full text-white bg-[orange] hover:bg-[#ffb731] hover:border-[orange] border-[orange] normal-case text-lg mt-3" default="Add Review" />
-                            </div>
-                    }
+                    <div className="flex items-center justify-center">
+                    {/* to={`/my-booking/review/edit/${params.id}`} */}
+                        {
+                            exist ?
+                                <button  className="text-center font-bold w-full btn btn-primary text-xl" disabled>You have added you review.</button>
+                                :
+                                <div className="form-control">
+                                    <input type="submit" className="btn btn-full w-full text-white bg-[orange] hover:bg-[#ffb731] hover:border-[orange] border-[orange] normal-case text-lg mt-3" default="Add Review" />
+                                </div>
+                        }
+                        {
+                            errorMessage != '' ? <p className="text-2xl text-red-600 text-center">{errorMessage}</p> : ""
+                        }
+                    </div>
+
                 </form>
             </div>
         </div>

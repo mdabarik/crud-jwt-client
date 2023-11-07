@@ -21,11 +21,37 @@ const EditReview = () => {
     const params = useParams();
     console.log(params);
 
+    const [countReviews, setCountReviews] = useState();
+    const [countStars, setCountStars] = useState();
+    const [currentStars, setCurrentstars] = useState();
+    // countStars - currentStars
+
+    // countStars, currentStars
+    // selected stars
+
+    useEffect(() => {
+        axios.get(`/api/v1/rooms/${params.id}`)
+        .then(res => {
+            console.log('api/v1/rooms',res?.data);
+            setCountReviews(res?.data?.count_reviews)
+            setCountStars(res?.data?.count_stars)
+            console.log(countReviews, countStars);
+        })
+    }, [])
+
+    useEffect(() => {
+        axios.get(`/api/v1/review?email=${user.email}&roomId=${params.id}`)
+        .then(res => {
+            console.log(res?.data);
+            setCurrentstars(res?.data?.rating)
+        })
+    }, [])
+
     useEffect(() => {
         axios.get(`/api/v1/singlereview?userEmail=${user?.email}&roomId=${params.id}`, { withCredentials: true })
             .then(res => {
-                const data = res.data;
-                setValue(data[0].rating)
+                const data = res?.data;
+                setValue(parseFloat(data[0].rating).toFixed(2))
                 setReview(data[0].review)
                 setProfession(data[0].profession)
                 console.log(data);
@@ -36,7 +62,12 @@ const EditReview = () => {
 
     const handleAddReview = (e) => {
         e.preventDefault();
-        const rating = value;
+
+        if (!value) {
+            setErrorMessage("Select rating to update")
+            return;
+        }
+        const rating = parseFloat(value).toFixed(2);
         const userName = user?.displayName;
         const photoURL = user?.photoURL;
         const userEmail = user?.email;
@@ -55,19 +86,26 @@ const EditReview = () => {
         axios.put('/api/v1/add-review', info, { withCredentials: true })
             .then(res => {
                 console.log(res);
-                if (res.data.upsertedCount) {
-                    toast.success('Your review added successfully.')
-
+                if (res?.data?.upsertedCount) {
+                    //
                 } else {
                     toast.success("Updated succfully")
                 }
 
-                // axios.patch(`/update-room/${params.id}`, {rating})
-                // .then(res => {
-                //     console.log(res.data);
-                // })
-
             })
+
+        // update rooms
+        const newRating = {
+            stars_count: parseFloat(countStars) - parseFloat(currentStars) + parseFloat(value),
+            roomId: params.id
+        }
+
+        console.log('newrating updating rooms', newRating);
+
+        axios.patch(`/edit/patch/req/${params.id}`, newRating)
+        .then(res => {
+            console.log('edit/path/req/', res.data);
+        })
     }
 
 
@@ -84,12 +122,7 @@ const EditReview = () => {
             </div>
             <div className="flex items-center justify-center mt-8">
                 <form onSubmit={handleAddReview} className="w-[90%] md:w-[60%]">
-                    {
-                        errorMessage == "" ? "" :
-                            <div className="alert alert-error flex items-center justify-center">
-                                <span>Error: {errorMessage}</span>
-                            </div>
-                    }
+                    
 
                     <div className="form-control flex items-center justify-center">
                         <div className="avatar">
@@ -129,6 +162,12 @@ const EditReview = () => {
                     <div className="form-control">
                         <input type="submit" className="btn btn-full w-full text-white bg-[orange] hover:bg-[#ffb731] hover:border-[orange] border-[orange] normal-case text-lg mt-3" value="Submit Edit" />
                     </div>
+                    {
+                        errorMessage == "" ? "" :
+                            <div className="alert alert-error flex items-center justify-center">
+                                <span>Error: {errorMessage}</span>
+                            </div>
+                    }
                 </form>
             </div>
         </div>

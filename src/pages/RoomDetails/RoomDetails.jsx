@@ -103,7 +103,10 @@ const RoomDetails = () => {
         //     setDisabled(true)
         // }
 
-        const discountPrice = parseInt(room?.price_per_night - (room?.special_offers / 100) * room?.price_per_night);
+        let discountPrice = parseInt(room?.price_per_night - (room?.special_offers / 100) * room?.price_per_night);
+        if (parseInt(room?.price_per_night) == 0) {
+            discountPrice = room?.price_per_night;
+        }
         const bookingInfo = {
             roomId: id,
             roomDescription: room.room_description,
@@ -153,9 +156,9 @@ const RoomDetails = () => {
                 setAvailableSeat(diff)
                 console.log('available diff', availableSeat);
                 console.log('change', res);
-                    setAvailable(`Available on ${date}  (${diff} seats)`)
-                    setDisabled(false)
-                    console.log('correct');
+                setAvailable(`Available on ${date}  (${diff} seats)`)
+                setDisabled(false)
+                console.log('correct');
                 // }
             })
             .catch(err => {
@@ -218,12 +221,18 @@ const RoomDetails = () => {
                         <h3 className="font-semibold">Price Night: ${room?.price_per_night}</h3>
                         <div className="flex items-center gap-x-2">
                             <p className="font-semibold">Special Price:</p>
-                            <strike>${room?.price_per_night}</strike>
-                            <p>${parseInt(room?.price_per_night - (room?.special_offers / 100) * room?.price_per_night)}</p>
-                            <p>({room.special_offers}% off)</p>
+                            {
+
+                                parseInt(room?.special_offers) == 0 ? <span>No Special Offer Available Now</span> :
+
+                                    <>
+                                        <strike>${room?.price_per_night}</strike>
+                                        <p>${parseInt(room?.price_per_night - (room?.special_offers / 100) * room?.price_per_night)}</p>
+                                        <p>({room.special_offers}% off)</p></>
+                            }
                         </div>
                         <p><span className="font-semibold">Size:</span> 400 sq ft</p>
-                        <p><span className="font-bold">Available Seat:</span> {availableSeat == 0 ? 'Please select date for available seat': availableSeat}</p>
+                        <p><span className="font-bold">Available Seat:</span> {availableSeat == 0 ? 'Please select date for available seat' : availableSeat}</p>
                         <div className="flex items-center gap-x-2">
                             <p className="font-semibold">Status:</p>
                             <p className="px-3 py-1 rounded-lg">
