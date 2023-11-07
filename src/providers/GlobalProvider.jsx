@@ -10,7 +10,7 @@ const provider = new GoogleAuthProvider();
 
 const GlobalProvider = ({ children }) => {
 
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const googleSignIn = () => {
         return signInWithPopup(firebaseAuth, provider);

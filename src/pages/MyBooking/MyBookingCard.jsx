@@ -23,14 +23,13 @@ import moment from "moment";
 
 
 const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
-    const axios = useAxios();
     const [selDate, setSelDate] = useState("");
 
     const { _id, roomId, roomDescription, pricePerNight, bookingDate, roomImage, userEmail } = card || {};
     const [bookDate, setBookDate] = useState(bookingDate);
 
 
-    const currentDate = new Date().toISOString().split('T')[0]; // Get current date in format 'YYYY-MM-DD'
+    const currentDate = new Date().toISOString().split('T')[0];
     const [selectedDate, setSelectedDate] = useState('');
 
     const handleDateChange = (event) => {
@@ -77,6 +76,8 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
                     toast.success("Updated successfully");
                     setBookDate(newDate + "");
                     setDisable(true)
+                } else {
+                    toast.error("Already updated with the selected date")
                 }
                 console.log(res);
             })
@@ -87,8 +88,21 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
         // toast.success('Updated successfully!')
     }
 
-    
+    // const [availableRoom, setAvailableRoom] = useState(0)
     const handleDateChange1 = (e) => {
+
+        let availableRoom = 10; // default value
+        // /api/v1/rooms/:id
+        fetch(`http://localhost:5555/api/v1/rooms/${roomId}`, {
+            credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(data => {
+            availableRoom = data.available_rooms
+            console.log('data on datechange', data.available_rooms);
+        })
+
+
         const date = e.target.value;
         console.log(date);
         fetch(`http://localhost:5555/api/v1/booking?date=${date}&id=${roomId}`, {
@@ -96,8 +110,11 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
         })
             .then(response => response.json())
             .then(res => {
+                const remaining = availableRoom - res.result.length;
+                console.log(remaining);
+                console.log('total room', availableRoom, 'room in book', res.result.length, 'diff', remaining);
                 console.log(res);
-                if (res.result.length == 0) {
+                if (remaining != 0) {
                     toast.success(`Available on ${date}`)
                     setDisable(false)
                 } else {

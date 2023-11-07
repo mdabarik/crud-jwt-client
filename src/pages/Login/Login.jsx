@@ -45,7 +45,8 @@ const Login = () => {
     }
 
     if (user) {
-        navigate('/');
+        // navigate('/');
+        console.log('pathnamalkdjfladkjf');
         return;
     }
 

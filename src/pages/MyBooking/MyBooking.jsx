@@ -27,8 +27,8 @@ const MyBooking = () => {
                 return res.json()
             })
             .then(data => {
-                setMyBooking(data.result)
-                console.log(data.result);
+                setMyBooking(data?.result)
+                console.log(data?.result);
             })
             .catch(err => {
                 console.log(err);

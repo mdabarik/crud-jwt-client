@@ -34,6 +34,8 @@ const RoomDetails = () => {
     const { id } = useParams();
     const [validation, setValidation] = useState(moment(new Date()))
     const [disabled, setDisabled] = useState(true);
+    const [availableSeat, setAvailableSeat] = useState(0);
+
 
     // modal
     const [open, setOpen] = useState(false);
@@ -63,6 +65,7 @@ const RoomDetails = () => {
             .then(res => {
                 setSliders(res?.data?.room_images);
                 setRoom(res.data);
+                // setAvailableSeat(res.data.available_rooms)
                 if (res?.data?.count_reviews != 0) {
                     setRating(parseFloat(res?.data?.count_stars / res?.data?.count_reviews).toFixed(2))
                 }
@@ -116,6 +119,7 @@ const RoomDetails = () => {
                     toast.success('Successfully booked');
                     setDisabled(true)
                     setAvailable('notavailable')
+                    setAvailableSeat(0)
                 }
             })
     }
@@ -144,14 +148,15 @@ const RoomDetails = () => {
         fetch(`http://localhost:5555/api/v1/booking?date=${date}&id=${id}`)
             .then(response => response.json())
             .then(res => {
-                console.log(res);
-                setAvailable(`Sorry not available at: ${date}`)
-                if (res.result.length == 0) {
-                    setAvailable(`Available on ${date}`)
-                    // toast.success(`Available on ${date}`)
+                console.log('available room', room.available_rooms, 'booked room', res.result.length, 'diff', parseInt(room.available_rooms) - res.result.length);
+                const diff = parseInt(room.available_rooms) - res.result.length;
+                setAvailableSeat(diff)
+                console.log('available diff', availableSeat);
+                console.log('change', res);
+                    setAvailable(`Available on ${date}  (${diff} seats)`)
                     setDisabled(false)
                     console.log('correct');
-                }
+                // }
             })
             .catch(err => {
                 console.log(err);
@@ -165,6 +170,8 @@ const RoomDetails = () => {
         handleDateChange(event.target.value)
         setValidation(event.target.value)
     };
+
+
 
 
     return (
@@ -209,13 +216,14 @@ const RoomDetails = () => {
                     <div className="flex-1 w-1/2 space-y-1 px-5">
                         <h2 className="text-2xl font-bold">{room?.room_description}</h2>
                         <h3 className="font-semibold">Price Night: ${room?.price_per_night}</h3>
-                        <h3 className="flex items-center gap-x-2">
+                        <div className="flex items-center gap-x-2">
                             <p className="font-semibold">Special Price:</p>
                             <strike>${room?.price_per_night}</strike>
                             <p>${parseInt(room?.price_per_night - (room?.special_offers / 100) * room?.price_per_night)}</p>
                             <p>({room.special_offers}% off)</p>
-                        </h3>
+                        </div>
                         <p><span className="font-semibold">Size:</span> 400 sq ft</p>
+                        <p><span className="font-bold">Available Seat:</span> {availableSeat == 0 ? 'Please select date for available seat': availableSeat}</p>
                         <div className="flex items-center gap-x-2">
                             <p className="font-semibold">Status:</p>
                             <p className="px-3 py-1 rounded-lg">
@@ -286,7 +294,7 @@ const RoomDetails = () => {
                                 {/* <Button className="btn btn-primary" onClick={handleOpen}>Book Now</Button> */}
                                 {
                                     !user ? <Link className="btn btn-error" to="/login">Login to Book</Link> :
-                                        disabled == true ?
+                                        disabled == true || availableSeat == 0 ?
                                             <button className="btn w-1/2 mt-2" title="select date to enable" disabled>Book Now</button>
                                             :
                                             <button onClick={() => {
