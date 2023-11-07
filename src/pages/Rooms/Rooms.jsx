@@ -30,7 +30,7 @@ const Rooms = () => {
     }, [range, sortOrder])
 
     return (
-        <div className="my-8" data-aos="zoom-in">
+        <div className="my-8 w-[90%] md:w-[90%] max-w-[1280px] mx-auto" data-aos="zoom-in">
             <Helmet>
                 <title>Rooms - Hotel Booking</title>
             </Helmet>

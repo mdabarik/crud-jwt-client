@@ -6,7 +6,7 @@ import { useState } from "react";
 
 
 const ReviewCard = ({card}) => {
-    const {photoURL, name, profession, date, rating, review} = card || {};
+    const {photoURL, userName, profession, date, rating, review} = card || {};
 
     console.log(card);
     return (
@@ -16,7 +16,7 @@ const ReviewCard = ({card}) => {
                     <img src={photoURL} className="h-[100px] w-[100px] rounded-full" />
                 </div>
                 <div className="flex flex-col">
-                    <h3>{name}</h3>
+                    <h3 className="text-xl font-bold">{userName}</h3>
                     <p>Date: {date || '2020-20-10'}</p>
                     <div>
                         <Rating

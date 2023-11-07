@@ -178,18 +178,18 @@ const RoomDetails = () => {
 
 
     return (
-        <div className="my-8">
+        <div className="my-8 w-[90%] mx-auto">
             <Helmet>
                 <title>Room Details - Hotel Booking</title>
             </Helmet>
             <div className="flex flex-col ">
                 <div className="flex flex-col items-center justify-center my-4">
-                    <h2 className="text-3xl font-semibold text-center">Location: {room?.room_location}</h2>
-                    <p className="text-center text-sm mt-2">Check the details information of this room below</p>
+                    <h2 className="text-2xl md:text-3xl font-semibold text-center">Location: {room?.room_location}</h2>
+                    <p className="text-center text-[12px] md:text-sm mt-2">Check the details information of this room below</p>
                 </div>
-                <div className="flex h-[500px] my-6 w-full">
-                    <div className="w-1/2">
-                        <div className='h-[500px]'>
+                <div className="flex flex-col md:flex-row min-h-[500px] my-6 w-full">
+                    <div className="w-full md:w-1/2">
+                        <div className='h-[500px] relative z-0'>
                             <Swiper
                                 loop={true}
                                 spaceBetween={30}
@@ -216,7 +216,7 @@ const RoomDetails = () => {
                             </Swiper>
                         </div>
                     </div>
-                    <div className="flex-1 w-1/2 space-y-1 px-5">
+                    <div className="md:flex-1 w-full md:w-1/2 space-y-1 px-5 mt-6 md:mt-0">
                         <h2 className="text-2xl font-bold">{room?.room_description}</h2>
                         <h3 className="font-semibold">Price Night: ${room?.price_per_night}</h3>
                         <div className="flex items-center gap-x-2">
