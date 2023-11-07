@@ -36,8 +36,8 @@ const NewsLetter = () => {
         console.log(email, name);
         axios.put("/api/v1/newsletter", {email, name})
         .then(res => {
-            const data = res.data;
-            if (data.upsertedCount > 0) {
+            const data = res?.data;
+            if (data?.upsertedCount > 0) {
                 toast.success("Successfully subscribed!");
             } else {
                 toast.error("You subscribed already")

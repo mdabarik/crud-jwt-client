@@ -87,8 +87,9 @@ const RoomDetails = () => {
     }, [])
 
 
-
+    const [clicked, setClicked] = useState(false);
     const handleRoomBooking = () => {
+        setClicked(true)
 
         // const currentTime = moment(new Date()); // Current time
         // const futureTime = moment(validation); // A future time to compare with, replace it with your desired time
@@ -231,7 +232,7 @@ const RoomDetails = () => {
                                         <p>({room.special_offers}% off)</p></>
                             }
                         </div>
-                        <p><span className="font-semibold">Size:</span> 400 sq ft</p>
+                        <p><span className="font-semibold">Size:</span> {room?.room_size}</p>
                         <p><span className="font-bold">Available Seat:</span> {availableSeat == 0 ? 'Please select date for available seat' : availableSeat}</p>
                         <div className="flex items-center gap-x-2">
                             <p className="font-semibold">Status:</p>
@@ -242,7 +243,7 @@ const RoomDetails = () => {
                                 }
                             </p>
                         </div>
-                        <p><span className="font-bold">Location: </span> <span>Lost, Angel, 11 Tower</span></p>
+                        <p><span className="font-bold">Location: </span> <span>{room?.room_location}</span></p>
                         <div className="flex items-center gap-3">
                             <span className="font-bold">Rating:</span>
                             <Rating
@@ -291,11 +292,18 @@ const RoomDetails = () => {
                                         <div className="flex flex-col space-y-5 my-10">
                                             <h2 className="text-2xl font-bold text-center">Confirm your booking</h2>
                                             <div>
-                                                <h2>{room.room_description}</h2>
+                                                <h2 className="font-bold">{room.room_description}</h2>
+                                                <p><span className="font-bold">Room Size:</span> {room?.room_size}</p>
                                                 <h3><span className="font-bold">Pricing:</span> ${room.price_per_night}</h3>
+                                                <p><span className="font-bold">Location: </span> <span>{room?.room_location}</span></p>
                                                 <p><span className="font-bold">Booking date:</span> {sDate}</p>
                                             </div>
-                                            <button onClick={() => handleRoomBooking()} className="btn btn-secondary text-center">Confirm Booking</button>
+                                            {
+                                                clicked ? 
+                                                <button onClick={() => handleRoomBooking()} className="btn btn-secondary text-center" disabled>Confirm Booking</button>
+                                                :
+                                                <button onClick={() => handleRoomBooking()} className="btn btn-secondary text-center">Confirm Booking</button>
+                                            }
                                         </div>
 
                                     </Box>
@@ -308,6 +316,7 @@ const RoomDetails = () => {
                                             :
                                             <button onClick={() => {
                                                 handleOpen()
+                                                setClicked(false)
                                             }} className="btn w-1/2 btn-secondary mt-2">Book Now</button>
 
                                 }

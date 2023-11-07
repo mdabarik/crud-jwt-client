@@ -21,7 +21,11 @@ const Testimonials = () => {
         fetch("http://localhost:5555/api/v1/reviews")
             .then(res => res.json())
             .then(data => {
-                setTestimonials(data);
+                if (data?.length > 20) {
+                    setTestimonials(data?.splice(0, 20))
+                } else {
+                    setTestimonials();
+                }
             })
             .catch(err => {
                 console.log(err);
