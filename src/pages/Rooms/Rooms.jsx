@@ -23,7 +23,7 @@ const Rooms = () => {
         // http://localhost:5555/api/v1/rooms?filterByPrice=0-100&sortField=price_per_night&sortOrder=asc
         const url = `/api/v1/rooms?filterByPrice=${range}&sortField=price_per_night&sortOrder=${sortOrder}`;
         console.log(url);
-        axios.get(url)
+        axios.get(url, {withCredentials: true})
             .then(res => {
                 setRooms(res.data);
             })
