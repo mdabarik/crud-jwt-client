@@ -6,13 +6,8 @@ const PrivateRoute = ({ children }) => {
 
     const { user, loading } = useContext(GlobalContext)
 
-
     if(loading) {
-        return <progress className="progress w-56"></progress>
-    }
-
-    if(user?.email){
-        return children;
+        return <progress className="progress w-full"></progress>
     }
 
     if (user) {
@@ -20,8 +15,6 @@ const PrivateRoute = ({ children }) => {
     }
 
     return <Navigate to="/login" replace></Navigate>;
-
-    // return <Navigate to="/login"></Navigate>
 };
 
 export default PrivateRoute;

@@ -5,8 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { useContext, useEffect, useState } from "react";
 import Slider from "./Slider";
-import { AiOutlineComment } from 'react-icons/ai';
-
+import { Helmet } from "react-helmet";
 /**** DatePicker *****/
 import toast from "react-hot-toast";
 
@@ -111,7 +110,7 @@ const RoomDetails = () => {
             userName: user?.displayName,
             roomImage: sliders[0]
         }
-        axios.post('/api/v1/booking', bookingInfo, {withCredentials: true})
+        axios.post('/api/v1/booking', bookingInfo, { withCredentials: true })
             .then(res => {
                 if (res.data.insertedId) {
                     toast.success('Successfully booked');
@@ -170,6 +169,9 @@ const RoomDetails = () => {
 
     return (
         <div className="my-8">
+            <Helmet>
+                <title>Room Details - Hotel Booking</title>
+            </Helmet>
             <div className="flex flex-col ">
                 <div className="flex flex-col items-center justify-center my-4">
                     <h2 className="text-3xl font-semibold text-center">Location: {room?.room_location}</h2>

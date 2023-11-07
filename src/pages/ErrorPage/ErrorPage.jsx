@@ -1,12 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import ErrorLogo from "../../assets/404.png";
 import { MdSimCardAlert } from 'react-icons/md';
+import { Helmet } from "react-helmet";
+
 
 const ErrorPage = () => {
     const navigate = useNavigate();
 
     return (
         <div className="flex flex-col space-y-5 mt-5 items-center justify-center">
+            <Helmet>
+                <title>404 Not found - Hotel Booking</title>
+            </Helmet>
+
             <div className="flex items-center justify-center">
                 <img className="h-[400px]" src={ErrorLogo} alt="Error Photo" />
             </div>

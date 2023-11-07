@@ -6,9 +6,15 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Testimonial from './Testimonial';
+/*** AOS Animation ***/
+import 'aos/dist/aos.css';
+import AOS from "aos";
 
 const Testimonials = () => {
 
+    useEffect(() => {
+        AOS.init()
+    }, [])
 
     const [testimonials, setTestimonials] = useState([]);
     useEffect(() => {
@@ -23,7 +29,7 @@ const Testimonials = () => {
     }, []);
 
     return (
-        <div className="my-10">
+        <div className="my-10" data-aos="flip-up">
             {/* Rooms */}
             <div className="my-8">
                 <div className="flex flex-col items-center justify-center my-4">

@@ -6,8 +6,22 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { useEffect, useState } from "react";
 import Slider from "./Slider";
 
+/*** AOS Animation ***/
+import 'aos/dist/aos.css';
+import AOS from "aos";
+
 
 const Sliders = () => {
+
+
+    useEffect(() => {
+        AOS.init({
+            offset: 200,
+            duration: 600,
+            easing: 'ease-in-sine',
+            delay: 100,
+          })
+    }, [])
 
     const [sliders, setSliders] = useState([]);
 
@@ -22,7 +36,7 @@ const Sliders = () => {
     }, []);
 
     return (
-        <div className='w-full h-[500px]'>
+        <div className='w-full h-[500px]' data-aos="zoom-in">
             <Swiper
                 loop={true}
                 spaceBetween={30}

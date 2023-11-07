@@ -7,11 +7,12 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import { GlobalContext } from "../../providers/GlobalProvider";
+import { Helmet } from "react-helmet";
 
 
 const EditReview = () => {
 
-    const {user} = useContext(GlobalContext);
+    const { user } = useContext(GlobalContext);
 
     const [value, setValue] = useState(0);
     const [errorMessage, setErrorMessage] = useState("");
@@ -21,14 +22,14 @@ const EditReview = () => {
     console.log(params);
 
     useEffect(() => {
-        axios.get(`/api/v1/singlereview?userEmail=${user?.email}&roomId=${params.id}`, {withCredentials: true})
-        .then(res => {
-            const data = res.data;
-            setValue(data[0].rating)
-            setReview(data[0].review)
-            setProfession(data[0].profession)
-            console.log(data);
-        })
+        axios.get(`/api/v1/singlereview?userEmail=${user?.email}&roomId=${params.id}`, { withCredentials: true })
+            .then(res => {
+                const data = res.data;
+                setValue(data[0].rating)
+                setReview(data[0].review)
+                setProfession(data[0].profession)
+                console.log(data);
+            })
     }, [])
 
     const axios = useAxios();
@@ -51,28 +52,32 @@ const EditReview = () => {
             roomId,
             profession
         }
-        axios.put('/api/v1/add-review', info, {withCredentials: true})
-        .then(res => {
-            console.log(res);
-            if (res.data.upsertedCount) {
-                toast.success('Your review added successfully.')
+        axios.put('/api/v1/add-review', info, { withCredentials: true })
+            .then(res => {
+                console.log(res);
+                if (res.data.upsertedCount) {
+                    toast.success('Your review added successfully.')
 
-            } else {
-                toast.success("Updated succfully")
-            }
+                } else {
+                    toast.success("Updated succfully")
+                }
 
-            // axios.patch(`/update-room/${params.id}`, {rating})
-            // .then(res => {
-            //     console.log(res.data);
-            // })
+                // axios.patch(`/update-room/${params.id}`, {rating})
+                // .then(res => {
+                //     console.log(res.data);
+                // })
 
-        })
+            })
     }
 
-    
+
 
     return (
         <div className="my-10">
+            <Helmet>
+                <title>Edit Review - Hotel Booking</title>
+            </Helmet>
+
             <div className="flex flex-col items-center justify-center">
                 <h2 className="text-2xl font-bold text-center">Edit Your Feedback</h2>
                 <p className="text-center">Edit your detailed feedback</p>

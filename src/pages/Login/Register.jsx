@@ -7,13 +7,17 @@ import { GlobalContext } from "../../providers/GlobalProvider";
 import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
 import useAxios from "../../hooks/useAxios";
+import { Helmet } from "react-helmet";
+<Helmet>
+    <title>Login - Hotel Booking</title>
+</Helmet>
 
 const Register = () => {
     const { user, registerUser, logOut, loginUser } = useContext(GlobalContext);
     const navigate = useNavigate();
     const { googleSignIn } = useContext(GlobalContext);
 
-    if (user !== null) {
+    if (user) {
         navigate("/");
         return;
     }
@@ -99,6 +103,9 @@ const Register = () => {
 
     return (
         <div className="flex flex-col my-[100px] items-center justify-center ">
+            <Helmet>
+                <title>Register - Hotel Booking</title>
+            </Helmet>
             <div>
                 <h1 className="text-3xl font-light normal-case">Register for New Account</h1>
             </div>

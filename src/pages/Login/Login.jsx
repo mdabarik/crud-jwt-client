@@ -5,8 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { GlobalContext } from "../../providers/GlobalProvider";
 import toast from "react-hot-toast";
 import useAxios from "../../hooks/useAxios";
-import { useEffect } from "react";
-
+import { Helmet } from "react-helmet";
 
 const Login = () => {
     const axios = useAxios();
@@ -93,7 +92,6 @@ const Login = () => {
                 console.log(res, 'res');
                 axios.post('/jwt', { email: user?.email, name: user?.displayName })
                 toast.success('Google SignIn Successfull')
-                setLoading(true)
                 navigate('/');
             })
             .catch(err => {
@@ -103,6 +101,9 @@ const Login = () => {
 
     return (
         <div className="flex flex-col mt-[100px] items-center justify-center ">
+            <Helmet>
+                <title>Login - Hotel Booking</title>
+            </Helmet>
             <div>
                 <h1 className="text-3xl font-light normal-case">Login Now</h1>
             </div>

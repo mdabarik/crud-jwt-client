@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../providers/GlobalProvider";
 import MyBookingCard from "./MyBookingCard";
+import { Helmet } from "react-helmet";
 
 
 const MyBooking = () => {
@@ -38,7 +39,10 @@ const MyBooking = () => {
 
     return (
         <div className="my-10">
-            <h1 className="text-3xl font-bold text-center mb-4">My Booking</h1>
+            <Helmet>
+                <title>My Booking - Hotel Booking</title>
+            </Helmet>
+            <h1 className="text-3xl font-bold text-center mb-4">My Booking: {myBooking.length || 0}</h1>
             {
                 myBooking?.length == 0 ? <p className="text-2xl font-bold text-center text-red-700">No booking exists.</p> : ""
             }

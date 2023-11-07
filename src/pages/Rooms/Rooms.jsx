@@ -1,12 +1,23 @@
 import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import RoomCard from "../../components/RoomCard/RoomCard";
+/*** AOS Animation ***/
+import 'aos/dist/aos.css';
+import AOS from "aos";
+import { Helmet } from "react-helmet";
+
 
 const Rooms = () => {
     const axios = useAxios();
     const [range, setRange] = useState('');
     const [sortOrder, setSortOrder] = useState('')
     const [rooms, setRooms] = useState([]);
+
+
+    useEffect(() => {
+        AOS.init()
+    }, [])
+
 
     useEffect(() => {
         // http://localhost:5555/api/v1/rooms?filterByPrice=0-100&sortField=price_per_night&sortOrder=asc
@@ -19,7 +30,10 @@ const Rooms = () => {
     }, [range, sortOrder])
 
     return (
-        <div className="my-8">
+        <div className="my-8" data-aos="zoom-in">
+            <Helmet>
+                <title>Rooms - Hotel Booking</title>
+            </Helmet>
             {/* Filter Rooms */}
             <div>
                 <h2 className="text-2xl font-bold">Filter Rooms</h2>

@@ -6,6 +6,10 @@ import { GlobalContext } from "../../providers/GlobalProvider";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 import useAxios from "../../hooks/useAxios";
+/*** AOS Animation ***/
+import 'aos/dist/aos.css';
+import AOS from "aos";
+
 
 const NewsLetter = () => {
     const axios = useAxios();
@@ -17,6 +21,15 @@ const NewsLetter = () => {
         if (user) {
             setName(user?.displayName);
         }
+    }, [])
+
+    useEffect(() => {
+        AOS.init({
+            offset: 200,
+            duration: 600,
+            easing: 'ease-in-sine',
+            delay: 100,
+          })
     }, [])
 
     const handleNewsletter = () => {
@@ -36,7 +49,7 @@ const NewsLetter = () => {
     }
 
     return (
-        <div className="my-10 space-y-4">
+        <div className="my-10 space-y-4" data-aos="flip-down">
             <div className="flex flex-col items-center justify-center">
                 <h2 className="text-2xl font-bold text-center">Subscribe Now</h2>
                 <p className="text-center">Subscribe to get latest deals and promotional email</p>

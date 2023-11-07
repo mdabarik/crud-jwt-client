@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import { GlobalContext } from "../../providers/GlobalProvider";
+import { Helmet } from "react-helmet";
 
 
 const AddReview = () => {
@@ -22,7 +23,7 @@ const AddReview = () => {
     console.log(params);
 
     useEffect(() => {
-        axios.get(`/api/v1/singlereview?userEmail=${user?.email}&roomId=${params.id}`, {withCredentials: true})
+        axios.get(`/api/v1/singlereview?userEmail=${user?.email}&roomId=${params.id}`, { withCredentials: true })
             .then(res => {
                 const data = res.data;
                 setValue(data[0].rating)
@@ -56,7 +57,7 @@ const AddReview = () => {
             roomId,
             profession
         }
-        axios.put('/api/v1/add-review', info, {withCredentials: true})
+        axios.put('/api/v1/add-review', info, { withCredentials: true })
             .then(res => {
                 console.log(res);
                 if (res.data.upsertedCount) {
@@ -79,6 +80,9 @@ const AddReview = () => {
 
     return (
         <div className="my-10">
+            <Helmet>
+                <title>Add Review - Hotel Booking</title>
+            </Helmet>
             <div className="flex flex-col items-center justify-center">
                 <h2 className="text-2xl font-bold text-center">Your Feedback</h2>
                 <p className="text-center">Write your detailed feedback</p>

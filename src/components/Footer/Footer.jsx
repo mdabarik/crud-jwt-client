@@ -3,8 +3,17 @@ import Logo from "./../../assets/logo.png";
 import { FaTwitter } from "react-icons/fa";
 import { BsYoutube } from "react-icons/bs";
 import { BsFacebook } from "react-icons/bs";
+/*** AOS Animation ***/
+import 'aos/dist/aos.css';
+import AOS from "aos";
+import { useEffect } from "react";
 
 const Footer = () => {
+
+    useEffect(() => {
+        AOS.init()
+    }, [])
+
 
     const footerLinks = <>
         <Link to="/">Home</Link>
@@ -25,7 +34,7 @@ const Footer = () => {
     </>
 
     return (
-        <div className="py-12 flex flex-col">
+        <div className="py-12 flex flex-col" data-aos="zoom-in">
             <div className="flex flex-col items-center justify-center gap-y-3">
                 <img src={Logo} alt="Logo" />
                 <h2 className="text-2xl">Hotel Booking</h2>

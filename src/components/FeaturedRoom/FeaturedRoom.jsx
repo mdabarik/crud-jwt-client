@@ -2,9 +2,17 @@ import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import RoomCard from "./RoomCard";
 
+/*** AOS Animation ***/
+import 'aos/dist/aos.css';
+import AOS from "aos";
+
 const FeaturedRoom = () => {
     const axios = useAxios();
     const [rooms, setRooms] = useState([]);
+
+    useEffect(() => {
+        AOS.init()
+    }, [])
 
     useEffect(() => {
         // http://localhost:5555/api/v1/rooms?filterByPrice=0-100&sortField=price_per_night&sortOrder=asc
@@ -17,7 +25,7 @@ const FeaturedRoom = () => {
 
 
     return (
-        <div className="my-8">
+        <div className="my-8" data-aos="fade-up" >
             {/* Rooms */}
             <div className="my-8">
                 <div className="flex flex-col items-center justify-center my-4">
