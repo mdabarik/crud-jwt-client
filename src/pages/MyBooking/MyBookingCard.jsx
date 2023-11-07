@@ -24,8 +24,10 @@ import useAxios from "../../hooks/useAxios";
 const MyBookingCard = ({card, myBooking, setMyBooking}) => {
     const axios = useAxios();
     const [selDate, setSelDate] = useState("");
-
+    
     const {_id, roomId, roomDescription, pricePerNight, bookingDate, roomImage, userEmail} = card || {};
+    const [bookDate, setBookDate] = useState(bookingDate);
+    
 
     const { user } = useContext(GlobalContext);
     const [value, setValue] = useState(dayjs('2022-04-17'));
@@ -62,7 +64,8 @@ const MyBookingCard = ({card, myBooking, setMyBooking}) => {
         .then(response => response.json())
         .then(res => {
             if (res.modifiedCount > 0) {
-                toast.success("Updated successfully")
+                toast.success("Updated successfully");
+                setBookDate(newDate+"");
             }
             console.log(res);
         })
@@ -114,7 +117,7 @@ const MyBookingCard = ({card, myBooking, setMyBooking}) => {
                 <div className="space-y-3">
                     <Link to={`/rooms/${roomId}`} className="text-2xl">{roomDescription}</Link>
                     <p>Price(One Night): ${pricePerNight}</p>
-                    <p>Booking date: {bookingDate}</p>
+                    <p>Booking date: {bookDate}</p>
                     <Link to={`/my-booking/review/add/${roomId}`} className="btn btn-primary">Your Review</Link>
                 </div>
             </div>

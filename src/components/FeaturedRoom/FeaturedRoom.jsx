@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
-import RoomCard from "../RoomCard/RoomCard";
+import RoomCard from "./RoomCard";
 
 const FeaturedRoom = () => {
     const axios = useAxios();

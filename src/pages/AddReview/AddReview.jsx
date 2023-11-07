@@ -4,31 +4,36 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import { GlobalContext } from "../../providers/GlobalProvider";
 
 
 const AddReview = () => {
 
-    const {user} = useContext(GlobalContext);
+    const { user } = useContext(GlobalContext);
 
     const [value, setValue] = useState(0);
     const [errorMessage, setErrorMessage] = useState("");
     const [review, setReview] = useState(null);
     const [profession, setProfession] = useState(null)
+    const [exist, setExist] = useState(false);
     const params = useParams();
     console.log(params);
 
     useEffect(() => {
         axios.get(`/api/v1/singlereview?userEmail=${user?.email}&roomId=${params.id}`)
-        .then(res => {
-            const data = res.data;
-            setValue(data[0].rating)
-            setReview(data[0].review)
-            setProfession(data[0].profession)
-            console.log(data);
-        })
+            .then(res => {
+                const data = res.data;
+                setValue(data[0].rating)
+                setReview(data[0].review)
+
+                setProfession(data[0].profession)
+                console.log(data);
+                if (data[0].review) {
+                    setExist(true);
+                }
+            })
     }, [])
 
     const axios = useAxios();
@@ -52,24 +57,25 @@ const AddReview = () => {
             profession
         }
         axios.put('/api/v1/add-review', info)
-        .then(res => {
-            console.log(res);
-            if (res.data.upsertedCount) {
-                toast.success('Your review added successfully.')
-
-            } else {
-                toast.success("Updated succfully")
-            }
-
-            axios.patch(`/update-room/${params.id}`, {rating})
             .then(res => {
-                console.log(res.data);
-            })
+                console.log(res);
+                if (res.data.upsertedCount) {
+                    toast.success('Your review added successfully.')
+                    setExist(true)
 
-        })
+                } else {
+                    toast.success("Updated succfully")
+                }
+
+                axios.patch(`/update-room/${params.id}`, { rating })
+                    .then(res => {
+                        console.log(res.data);
+                    })
+
+            })
     }
 
-    
+
 
     return (
         <div className="my-10">
@@ -121,9 +127,16 @@ const AddReview = () => {
                             precision={0.5}
                         />
                     </div>
-                    <div className="form-control">
-                        <input type="submit" className="btn btn-full w-full text-white bg-[orange] hover:bg-[#ffb731] hover:border-[orange] border-[orange] normal-case text-lg mt-3" default="Add Review" />
-                    </div>
+
+                    {/* /my-booking/review/add/${roomId} */}
+                    {
+                        exist ?
+                            <Link to={`/my-booking/review/edit/${params.id}`} className="btn btn-full w-full text-white bg-[orange] hover:bg-[#ffb731] hover:border-[orange] border-[orange] normal-case text-lg mt-3">Go To Edit Page</Link>
+                            :
+                            <div className="form-control">
+                                <input type="submit" className="btn btn-full w-full text-white bg-[orange] hover:bg-[#ffb731] hover:border-[orange] border-[orange] normal-case text-lg mt-3" default="Add Review" />
+                            </div>
+                    }
                 </form>
             </div>
         </div>
