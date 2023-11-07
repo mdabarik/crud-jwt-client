@@ -57,7 +57,9 @@ const Login = () => {
         setErrorMsg("");
         loginUser(email, password)
             .then(res => {
+                toast.success("login succesfull");
                 console.log(res);
+                navigate('/');
             })
             .catch(err => {
                 setErrorMsg(err.code);
