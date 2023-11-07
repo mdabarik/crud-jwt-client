@@ -38,15 +38,15 @@ const MyBooking = () => {
 
 
     return (
-        <div className="my-10">
+        <div className="my-8 w-[90%] mx-auto max-w-[1280px]">
             <Helmet>
                 <title>My Booking - Hotel Booking</title>
             </Helmet>
-            <h1 className="text-3xl font-bold text-center mb-4">My Booking: {myBooking.length || 0}</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-center mb-4">My Booking: {myBooking.length || 0}</h1>
             {
                 myBooking?.length == 0 ? <p className="text-2xl font-bold text-center text-red-700">No booking exists.</p> : ""
             }
-            <div>
+            <div className="flex flex-col gap-y-6">
                 {
                     myBooking?.map(card => <MyBookingCard setMyBooking={setMyBooking} myBooking={myBooking} card={card} key={card._id}></MyBookingCard>)
                 }

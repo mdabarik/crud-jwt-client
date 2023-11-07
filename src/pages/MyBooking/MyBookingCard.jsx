@@ -1,6 +1,11 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import { CiSquareRemove } from "react-icons/ci";
+import { MdOutlineDateRange } from "react-icons/md";
+import { MdOutlineRateReview } from "react-icons/md";
+import { GrUpdate } from "react-icons/gr";
+import { RxUpdate } from "react-icons/rx";
 
 /**** Modal ****/
 import Box from '@mui/material/Box';
@@ -48,7 +53,7 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        miWidth: 600,
         bgcolor: 'background.paper',
         border: '2px solid #000',
         boxShadow: 24,
@@ -96,11 +101,11 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
         fetch(`http://localhost:5555/api/v1/rooms/${roomId}`, {
             credentials: 'include'
         })
-        .then(res => res.json())
-        .then(data => {
-            availableRoom = data.available_rooms
-            console.log('data on datechange', data.available_rooms);
-        })
+            .then(res => res.json())
+            .then(data => {
+                availableRoom = data.available_rooms
+                console.log('data on datechange', data.available_rooms);
+            })
 
 
         const date = e.target.value;
@@ -126,7 +131,7 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
                 console.log(err);
                 setDisable(true);
             })
-            setDisable(true)
+        setDisable(true)
     }
 
     const handleCancel = () => {
@@ -160,7 +165,7 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
 
 
 
-        
+
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -172,7 +177,7 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 // http://localhost:5555/api/v1/review/delete?userEmail=mdabarik19@gmail.com&roomId=141808iufofjaldkfjh
-                fetch(`http://localhost:5555/delete-review/${_id}`,  {
+                fetch(`http://localhost:5555/delete-review/${_id}`, {
                     method: 'DELETE',
                     credentials: 'include'
                 })
@@ -194,20 +199,23 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
 
     return (
         <div className="flex flex-col items-center justify-between md:flex-row border-[1.5px] rounded-lg p-3 shadow-lg">
-            <div className="flex gap-6">
+            <div className="flex flex-col md:flex-row w-full text-center md:text-left gap-6 md:w-2/3">
 
-                <div className="h-[200px] w-[300px] bg-gray-400 rounded-lg" >
-                    <img className="h-[200px] w-[300px] rounded-lg" src={roomImage} alt="room img" />
+                <div className="h-[200px] w-full md:w-[300px] bg-gray-400 rounded-lg" >
+                    <img className="h-[200px] w-full md:w-[300px] rounded-lg" src={roomImage} alt="room img" />
                 </div>
-                <div className="space-y-3">
-                    <Link to={`/rooms/${roomId}`} className="text-2xl">{roomDescription}</Link>
+                <div className="space-y-2 md:space-y-3">
+                    <Link to={`/rooms/${roomId}`} className="text-xl md:text-2xl">{roomDescription}</Link>
                     <p>Price(One Night): ${pricePerNight}</p>
                     {/* <p>Booking date: {bookDate}</p> */}
                     <p>Booking: {moment(bookDate).format('ll')}</p>
-                    <Link to={`/my-booking/review/add/${roomId}`} className="btn btn-primary">Your Review</Link>
+                    <Link to={`/my-booking/review/add/${roomId}`} className="btn btn-primary">
+                        <MdOutlineRateReview className="text-xl"></MdOutlineRateReview>
+                        <span>Your Review</span>
+                    </Link>
                 </div>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 w-full md:w-1/3">
                 <Modal
                     open={open}
                     onClose={handleClose}
@@ -219,13 +227,13 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
                             <h2 className="text-2xl font-bold text-center">Update Booking Date</h2>
                             <div>
 
-                                <div>
+                                <div className="felx items-center justify-center text-center rounded-lg py-3 px-5 border-2">
                                     <input
                                         type="date"
                                         id="datePicker"
                                         name="datePicker"
                                         value={selectedDate}
-                                        onChange={ (e) => {
+                                        onChange={(e) => {
                                             handleDateChange(e);
                                             handleDateChange1(e)
 
@@ -236,17 +244,34 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
                                 {/* <input onChange={(e) => setSelDate(e.target.value + "")} type="date" /> */}
                             </div>
                             {
-                                disable ? 
-                                <button className="btn btn-secondary text-center" disabled>Update Date</button> :
-                                <button onClick={() => handleUpdateDate()} className="btn btn-secondary text-center">Update Date</button>
+                                disable ?
+                                    <button className="btn btn-secondary text-cente" disabled>
+                                        <RxUpdate className="text-xl"></RxUpdate>
+                                        <span>Update Date</span>
+                                    </button> :
+                                    <button onClick={() => handleUpdateDate()} className="btn btn-secondary text-center">
+                                        <RxUpdate className="text-xl text-white"></RxUpdate>
+                                        <span>Update Date</span>
+                                    </button>
                             }
-                            
+
                         </div>
 
                     </Box>
                 </Modal>
-                <Button className="btn btn-primary" onClick={handleOpen}>Update Date</Button>
-                <button onClick={() => handleCancel(1)} className="btn w-full btn-error">Cancel Booking</button>
+                <div className="flex  flex-col items-center justify-center mt-5 md:mt-0 md:justify-end overflow-hidden">
+                    <Button className="h-[100%]" onClick={handleOpen}>
+                        <span className="bg-[orange] hover:bg-[#c68202] border-none text-white rounded-lg btn btn-primary">
+                            <MdOutlineDateRange className="text-xl"></MdOutlineDateRange>
+                            <span className="">Update Date</span>
+                        </span>
+                        
+                    </Button>
+                    <button onClick={() => handleCancel(1)} className="btn my-4 md:my-0 bg-[orangered] hover:bg-[#b93201] text-white font-bold">
+                        <CiSquareRemove className="text-xl"></CiSquareRemove>
+                        <span>Cancel booking</span>
+                    </button>
+                </div>
             </div>
         </div>
     );
