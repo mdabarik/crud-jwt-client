@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import { GlobalContext } from "../../providers/GlobalProvider";
 import { Helmet } from "react-helmet";
@@ -13,6 +13,7 @@ import { Helmet } from "react-helmet";
 const AddReview = () => {
 
     const { user } = useContext(GlobalContext);
+    
 
     const [value, setValue] = useState(0);
     const [errorMessage, setErrorMessage] = useState("");
@@ -48,6 +49,31 @@ const AddReview = () => {
                 }
             })
     }, [])
+
+    const [notAuthorized, setNotAuthorized] = useState(false);
+    const [load, setLoad] = useState(false);
+    useEffect(() => {
+        fetch(`http://localhost:5555/review/checking?email=${user?.email}&id=${params.id}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(user.email, params.id);
+            const result = data?.data;
+            console.log(result);
+            if (result.length == 0) {
+                setNotAuthorized(true);
+            } else if (result.length != 0) {
+                setNotAuthorized(false);
+            }
+        })
+    }, [])
+
+    // if (load) {
+    //     return <p>loading</p>
+    // }
+
+    if (notAuthorized) {
+        return <Navigate to="/" />
+    }
 
     const axios = useAxios();
 
@@ -93,18 +119,18 @@ const AddReview = () => {
             console.log(res?.data);
         })
 
-        axios.put('/api/v1/add-review', info, { withCredentials: true })
-            .then(res => {
-                console.log(res);
-                if (res?.data?.upsertedCount) {
-                    toast.success('Your review added successfully.')
-                    setExist(true)
+        // axios.put('/api/v1/add-review', info, { withCredentials: true })
+        //     .then(res => {
+        //         console.log(res);
+        //         if (res?.data?.upsertedCount) {
+        //             toast.success('Your review added successfully.')
+        //             setExist(true)
 
-                } else {
-                    // toast.success("Updated succfully")
-                }
+        //         } else {
+        //             // toast.success("Updated succfully")
+        //         }
 
-            })
+        //     })
     }
 
 
@@ -169,7 +195,7 @@ const AddReview = () => {
                             exist ?
                                 <button  className="text-center font-bold w-full btn btn-primary" disabled>Already Submitted!</button>
                                 :
-                                <div className="form-control">
+                                <div className="form-control w-full">
                                     <input type="submit" className="btn btn-full w-full text-white bg-[orange] hover:bg-[#ffb731] hover:border-[orange] border-[orange] normal-case text-lg mt-3" default="Add Review" />
                                 </div>
                         }

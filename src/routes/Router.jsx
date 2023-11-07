@@ -39,10 +39,10 @@ const router = createBrowserRouter([
                 path: '/my-booking/review/add/:id',
                 element: <PrivateRoute><AddReview></AddReview></PrivateRoute>
             },
-            {
-                path: '/my-booking/review/edit/:id',
-                element: <PrivateRoute><EditReview></EditReview></PrivateRoute>
-            },
+            // {
+            //     path: '/my-booking/review/edit/:id',
+            //     element: <PrivateRoute><EditReview></EditReview></PrivateRoute>
+            // },
             {
                 path: '/login',
                 element: <Login></Login>
