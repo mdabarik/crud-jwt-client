@@ -167,7 +167,7 @@ const AddReview = () => {
                     {/* to={`/my-booking/review/edit/${params.id}`} */}
                         {
                             exist ?
-                                <button  className="text-center font-bold w-full btn btn-primary text-xl" disabled>You have added you review.</button>
+                                <button  className="text-center font-bold w-full btn btn-primary" disabled>Already Submitted!</button>
                                 :
                                 <div className="form-control">
                                     <input type="submit" className="btn btn-full w-full text-white bg-[orange] hover:bg-[#ffb731] hover:border-[orange] border-[orange] normal-case text-lg mt-3" default="Add Review" />

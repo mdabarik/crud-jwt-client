@@ -102,12 +102,12 @@ const Register = () => {
 
 
     return (
-        <div className="flex flex-col my-[100px] items-center justify-center ">
+        <div className="flex flex-col my-8 w-[90%] mx-auto items-center justify-center ">
             <Helmet>
                 <title>Register - Hotel Booking</title>
             </Helmet>
             <div>
-                <h1 className="text-3xl font-light normal-case">Register for New Account</h1>
+                <h1 className="text-3xl font-light normal-case">Register Now</h1>
             </div>
             <form onSubmit={handleRegister} className="mt-8 mb-2 w-[95%] md:w-[80%] lg:w-[60%]" autoComplete="off" >
                 <div className="mb-4 flex flex-col gap-6">

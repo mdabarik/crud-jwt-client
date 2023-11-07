@@ -47,7 +47,7 @@ const NavBar = () => {
             {
                 !user ?
                     <li className="flex items-center gap-1">
-                        <Link to="/login" className="px-3 py-2 bg-[#db332a] rounded-sm normal-case flex gap-1 text-white border-none hover:bg-[#b5100b] hover:text-white">
+                        <Link to="/login" className="px-3 w-full text-center flex items-center justify-center mt-3 py-2 bg-[#db332a] rounded-sm normal-case flex gap-1 text-white border-none hover:bg-[#b5100b] hover:text-white">
                             <CiLogin className="text-2xl"></CiLogin>
                             <span>Login</span>
                         </Link>

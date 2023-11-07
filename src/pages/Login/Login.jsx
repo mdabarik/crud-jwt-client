@@ -101,7 +101,7 @@ const Login = () => {
     }
 
     return (
-        <div className="flex flex-col mt-[100px] items-center justify-center ">
+        <div className="flex flex-col my-8 w-[90%] mx-auto items-center justify-center ">
             <Helmet>
                 <title>Login - Hotel Booking</title>
             </Helmet>
