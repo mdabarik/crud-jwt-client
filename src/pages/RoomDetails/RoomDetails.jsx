@@ -57,7 +57,7 @@ const RoomDetails = () => {
     const [selectedDate, setSelectedDate] = useState('');
 
 
-
+    
     const { user } = useContext(GlobalContext);
 
     useEffect(() => {
