@@ -32,7 +32,7 @@ const MyBooking = () => {
             })
             .catch(err => {
                 console.log(err);
-                console.log('lakdjflakdjf');
+                // console.log('lakdjflakdjf');
             })
     }, [])
 
