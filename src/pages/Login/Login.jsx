@@ -5,9 +5,11 @@ import { FcGoogle } from "react-icons/fc";
 import { GlobalContext } from "../../providers/GlobalProvider";
 import toast from "react-hot-toast";
 import useAxios from "../../hooks/useAxios";
+import { useEffect } from "react";
 
 
 const Login = () => {
+    const axios = useAxios();
     const { user, loading, setLoading, googleSignIn, loginUser } = useContext(GlobalContext)
     const [errorMsg, setErrorMsg] = useState(null);
     const [email, setEmail] = useState('');
@@ -16,6 +18,28 @@ const Login = () => {
     const navigate = useNavigate();
 
     console.log('location, login', location);
+
+    // useEffect(() => {
+    //     const jwtData = {
+    //         email: user?.email,
+    //         name: user?.displayName
+    //     }
+    //     fetch('http://localhost:5555/jwt', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(jwtData),
+    //         credentials: 'include' // Include cookies in the request
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data, 'jwt post request');
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //         });
+    // }, [loading])
 
     if (loading) {
         return <p>Loading...</p>
@@ -26,30 +50,50 @@ const Login = () => {
         return;
     }
 
+
+
     const handleLogin = (e) => {
         e.preventDefault();
         setErrorMsg("");
         loginUser(email, password)
-        .then(res => {
-            console.log(res);
-        })
-        .catch(err => {
-            setErrorMsg(err.code);
-        })
-        
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                setErrorMsg(err.code);
+            })
     }
+
+
+
+
+    // const jwtData = {
+    //     email: user?.email,
+    //     name: user?.displayName
+    // }
+    // fetch('http://localhost:5555/jwt', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({email:'mdabarik19@gmail.com', name: 'md a barik'}),
+    //     credentials: 'include' // Include cookies in the request
+    // })
+    // .then(res => res.json())
+    // .then(data => {
+    //     console.log(data);
+    // })
+    // .catch(error => {
+    //     console.error('Error:', error);
+    // });
 
     const handleGoogleSignedIn = async () => {
         googleSignIn()
             .then(res => {
                 console.log(res, 'res');
-                // jwt token
-                useAxios.post('/jwt', { email: user?.email, name: user?.displayName })
-                    .then(response => {
-                        console.log(response.data, 'axios');
-                    })
-
+                axios.post('/jwt', { email: user?.email, name: user?.displayName })
                 toast.success('Google SignIn Successfull')
+                setLoading(true)
                 navigate('/');
             })
             .catch(err => {

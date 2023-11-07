@@ -3,7 +3,6 @@ import StarIcon from '@mui/icons-material/Star';
 
 const Testimonial = ({ testitmonial }) => {
     const { name, img, rating, date, review, profession } = testitmonial || {};
-    console.log(img);
 
     return (
         <div className="text-white h-[350px] flex flex-col items-center justify-center rounded-lg relative">

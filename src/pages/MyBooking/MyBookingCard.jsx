@@ -91,7 +91,9 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
     const handleDateChange1 = (e) => {
         const date = e.target.value;
         console.log(date);
-        fetch(`http://localhost:5555/api/v1/booking?date=${date}&id=${roomId}`)
+        fetch(`http://localhost:5555/api/v1/booking?date=${date}&id=${roomId}`, {
+            credentials: 'include'
+        })
             .then(response => response.json())
             .then(res => {
                 console.log(res);
@@ -153,8 +155,9 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 // http://localhost:5555/api/v1/review/delete?userEmail=mdabarik19@gmail.com&roomId=141808iufofjaldkfjh
-                fetch(`http://localhost:5555/delete-review/${_id}`, {
-                    method: 'DELETE'
+                fetch(`http://localhost:5555/delete-review/${_id}`,  {
+                    method: 'DELETE',
+                    credentials: 'include'
                 })
                     .then(r => r.json())
                     .then(res => {

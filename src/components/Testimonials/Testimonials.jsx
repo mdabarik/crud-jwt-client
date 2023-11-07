@@ -49,7 +49,7 @@ const Testimonials = () => {
                         className="mySwiper"
                     >
                         {
-                            testimonials.map(testitmonial => {
+                            testimonials?.map(testitmonial => {
                                 return <SwiperSlide key={testitmonial._id}>
                                     <Testimonial testitmonial={testitmonial}></Testimonial>
                                 </SwiperSlide>

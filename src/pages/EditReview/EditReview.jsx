@@ -21,7 +21,7 @@ const EditReview = () => {
     console.log(params);
 
     useEffect(() => {
-        axios.get(`/api/v1/singlereview?userEmail=${user?.email}&roomId=${params.id}`)
+        axios.get(`/api/v1/singlereview?userEmail=${user?.email}&roomId=${params.id}`, {withCredentials: true})
         .then(res => {
             const data = res.data;
             setValue(data[0].rating)
@@ -51,7 +51,7 @@ const EditReview = () => {
             roomId,
             profession
         }
-        axios.put('/api/v1/add-review', info)
+        axios.put('/api/v1/add-review', info, {withCredentials: true})
         .then(res => {
             console.log(res);
             if (res.data.upsertedCount) {

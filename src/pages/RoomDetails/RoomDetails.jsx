@@ -111,7 +111,7 @@ const RoomDetails = () => {
             userName: user?.displayName,
             roomImage: sliders[0]
         }
-        axios.post('/api/v1/booking', bookingInfo)
+        axios.post('/api/v1/booking', bookingInfo, {withCredentials: true})
             .then(res => {
                 if (res.data.insertedId) {
                     toast.success('Successfully booked');

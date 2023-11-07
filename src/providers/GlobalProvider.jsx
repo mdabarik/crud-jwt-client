@@ -8,7 +8,7 @@ export const GlobalContext = createContext(null);
 
 const provider = new GoogleAuthProvider();
 
-const GlobalProvider = ({children}) => {
+const GlobalProvider = ({ children }) => {
 
     const [user, setUser] = useState();
     const [loading, setLoading] = useState(true);
@@ -38,14 +38,53 @@ const GlobalProvider = ({children}) => {
         logOut
     }
 
-    useEffect(()=> {
+
+
+    useEffect(() => {
+
         const unsubscribe = onAuthStateChanged(firebaseAuth, currUser => {
             setLoading(false);
             setUser(currUser);
+            console.log(currUser);
+
+            /*---------jwt----------*/
+            if (currUser) {
+                const jwtData = {
+                    email: currUser.email,
+                    name: currUser.displayName
+                }
+                fetch('http://localhost:5555/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(jwtData),
+                    credentials: 'include'
+                })
+                    .then(res => res.json())
+            } else {
+                // logout fetch request
+                fetch('http://localhost:5555/logout', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({}),
+                    credentials: 'include'
+                })
+                .then(res => {
+                    console.log(res.data);
+                })
+            }
+            /*---------jwt----------*/
+
         })
-        return () => unsubscribe();
+
+        return () => {
+            return unsubscribe();
+        }
     }, [])
-    
+
     return (
         <GlobalContext.Provider value={info}>
             {children}
