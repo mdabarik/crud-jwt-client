@@ -51,7 +51,7 @@ const AddReview = () => {
     }, [])
 
     const [notAuthorized, setNotAuthorized] = useState(false);
-    const [load, setLoad] = useState(false);
+    const [load, setLoad] = useState(true);
     useEffect(() => {
         fetch(`http://localhost:5555/review/checking?email=${user?.email}&id=${params.id}`)
         .then(res => res.json())
@@ -59,6 +59,7 @@ const AddReview = () => {
             console.log(user.email, params.id);
             const result = data?.data;
             console.log(result);
+            setLoad(false)
             if (result.length == 0) {
                 setNotAuthorized(true);
             } else if (result.length != 0) {
