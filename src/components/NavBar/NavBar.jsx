@@ -8,6 +8,8 @@ import "./NavBar.css";
 import { useContext } from "react";
 import { GlobalContext } from "../../providers/GlobalProvider";
 import toast from "react-hot-toast";
+import { FaQuora } from "react-icons/fa";
+import { AiOutlineTeam } from "react-icons/ai";
 
 const NavBar = () => {
 
@@ -42,6 +44,18 @@ const NavBar = () => {
                 <NavLink className="flex items-center gap-1" to="/my-booking">
                     <BsFillCartCheckFill></BsFillCartCheckFill>
                     <span>My Booking</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink className="flex items-center gap-1" to="/faq">
+                    <FaQuora></FaQuora>
+                    <span>FAQ</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink className="flex items-center gap-1" to="/about-us">
+                    <AiOutlineTeam></AiOutlineTeam>
+                    <span>About Us</span>
                 </NavLink>
             </li>
             {

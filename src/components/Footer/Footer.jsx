@@ -19,6 +19,8 @@ const Footer = () => {
         <Link to="/">Home</Link>
         <Link to="/rooms">Rooms</Link>
         <Link to="/my-booking">My Booking</Link>
+        <Link to="/faq">FAQ</Link>
+        <Link to="/about-us">About Us</Link>
     </>
 
     const socialLinks = <>

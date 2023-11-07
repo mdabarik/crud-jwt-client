@@ -1,0 +1,85 @@
+{
+    "faqs": [
+      {
+        "title": "1. How do I make a reservation?",
+        "description": "To make a reservation, simply download our app, search for your desired hotel, select your check-in and check-out dates, and choose the room type. Follow the prompts to complete the booking process."
+      },
+      {
+        "title": "2. Can I cancel or modify my reservation?",
+        "description": "Yes, you can cancel or modify your reservation through the app. Please check the hotel's cancellation policy for any applicable charges."
+      },
+      {
+        "title": "3. What payment methods are accepted?",
+        "description": "We accept various payment methods, including credit/debit cards and mobile payment options. Ensure your preferred method is available during the booking process."
+      },
+      {
+        "title": "4. Is my credit card information secure?",
+        "description": "Yes, your credit card information is securely processed using industry-standard encryption techniques. Your privacy and security are our top priorities."
+      },
+      {
+        "title": "5. Can I request additional amenities or services?",
+        "description": "Certainly! You can request additional amenities or services, such as airport transfers or extra bedding, during the booking process or by contacting our customer support team."
+      },
+      {
+        "title": "6. What is the check-in/check-out time?",
+        "description": "Check-in time is usually after 3:00 PM, and check-out time is before 12:00 PM. Specific timings may vary by hotel, so please check your booking confirmation for accurate details."
+      },
+      {
+        "title": "7. Is breakfast included in the booking?",
+        "description": "Some hotels offer complimentary breakfast, while others may charge an additional fee. Check the hotel details and booking confirmation to see if breakfast is included."
+      },
+      {
+        "title": "8. Can I book multiple rooms under one reservation?",
+        "description": "Yes, you can book multiple rooms under one reservation. During the booking process, specify the number of rooms and occupants, and our system will handle the rest."
+      },
+      {
+        "title": "9. What do I do if I have special requests or preferences?",
+        "description": "You can add special requests or preferences, such as a room with a view or a non-smoking room, in the 'Special Requests' section during the booking process. We will do our best to accommodate your preferences."
+      },
+      {
+        "title": "10. How can I view or modify my booking details?",
+        "description": "Log in to your account on the app to view or modify your booking details. You can update your reservation dates, add requests, or cancel your booking if needed."
+      },
+      {
+        "title": "11. Is Wi-Fi available at the hotel?",
+        "description": "Most hotels offer free Wi-Fi for guests. Check the hotel amenities section on the app or website to confirm if Wi-Fi is available and whether any additional charges apply."
+      },
+      {
+        "title": "12. What should I do if I need to change my reservation dates?",
+        "description": "If you need to change your reservation dates, log in to your account, go to the 'My Bookings' section, and select 'Modify Booking.' Follow the prompts to change your check-in and check-out dates."
+      },
+      {
+        "title": "13. Can I book a room for the same day?",
+        "description": "Yes, you can book a room for the same day, subject to availability. Use the app to check real-time availability and make a reservation for your desired hotel and room type."
+      },
+      {
+        "title": "14. What is the hotel's cancellation policy?",
+        "description": "Each hotel may have a different cancellation policy. You can find the details of the hotel's cancellation policy on the booking page before confirming your reservation. Please review it carefully."
+      },
+      {
+        "title": "15. How do I get directions to the hotel?",
+        "description": "Once your booking is confirmed, you will receive an email with the hotel's address and contact information. You can also find directions within the app using integrated maps."
+      },
+      {
+        "title": "16. Can I earn loyalty points with my bookings?",
+        "description": "Yes, many hotels offer loyalty programs. Make sure to enter your loyalty program membership number during the booking process to earn points for your stay."
+      },
+      {
+        "title": "17. What should I do if I forget my booking confirmation?",
+        "description": "If you forget your booking confirmation, you can log in to your account on the app and access your booking details, including the confirmation number, check-in/out dates, and hotel information."
+      },
+      {
+        "title": "18. Are pets allowed in the hotel?",
+        "description": "Pet policies vary by hotel. Check the hotel details on the app to see if pets are allowed. If you plan to bring a pet, make sure to select a pet-friendly room during the booking process."
+      },
+      {
+        "title": "19. Can I book a specific room number?",
+        "description": "Most hotels do not allow guests to request specific room numbers due to operational reasons. However, you can often request preferences such as a higher floor or a quiet room during the booking process."
+      },
+      {
+        "title": "20. What should I do if I encounter issues during my stay?",
+        "description": "If you encounter any issues during your stay, please contact the hotel's front desk immediately. If the issue is not resolved to your satisfaction, you can also reach out to our customer support team for assistance."
+      }
+    ]
+  }
+  

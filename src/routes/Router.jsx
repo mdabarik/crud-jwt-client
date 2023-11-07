@@ -10,6 +10,8 @@ import AddReview from "../pages/AddReview/AddReview";
 import EditReview from "../pages/EditReview/EditReview";
 import RoomDetails from "../pages/RoomDetails/RoomDetails";
 import PrivateRoute from "./PrivateRoute";
+import FAQ from "../pages/FAQ/FAQ";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 const router = createBrowserRouter([
     {
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register></Register>
+            },
+            {
+                path: '/faq',
+                element: <FAQ></FAQ>
+            },
+            {
+                path: '/about-us',
+                element: <AboutUs></AboutUs>
             }
         ]
     },

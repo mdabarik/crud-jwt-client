@@ -289,7 +289,7 @@ const RoomDetails = () => {
                                 >
                                     <Box sx={style}>
                                         <div className="flex flex-col space-y-5 my-10">
-                                            <h2 className="text-2xl font-bold text-center">Confirm/Cancel(Click Outsite to cancel)</h2>
+                                            <h2 className="text-2xl font-bold text-center">Confirm your booking</h2>
                                             <div>
                                                 <h2>{room.room_description}</h2>
                                                 <h3><span className="font-bold">Pricing:</span> ${room.price_per_night}</h3>
