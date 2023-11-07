@@ -52,6 +52,11 @@ const RoomDetails = () => {
         p: 4,
     };
 
+    const currentDate = new Date().toISOString().split('T')[0]; // Get current date in format 'YYYY-MM-DD'
+    const [selectedDate, setSelectedDate] = useState('');
+
+
+
     const { user } = useContext(GlobalContext);
 
     useEffect(() => {
@@ -72,11 +77,11 @@ const RoomDetails = () => {
     useEffect(() => {
         // userEmail=mdabarik19@gmail.com&roomId=65480a5e9b625d184f24e99d
         fetch(`http://localhost:5555/reviews/${params.id}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            setReviews(data)
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setReviews(data)
+            })
     }, [])
 
 
@@ -118,19 +123,19 @@ const RoomDetails = () => {
 
     const handleDateChange = (date) => {
 
-        const currentTime = moment(new Date()); // Current time
-        const futureTime = moment(validation); // A future time to compare with, replace it with your desired time
+        // const currentTime = moment(new Date()); // Current time
+        // const futureTime = moment(validation); // A future time to compare with, replace it with your desired time
 
-        if (currentTime.isBefore(futureTime, 'day')) {
-            console.log('valid');
-        } else if (currentTime.isSame(futureTime, 'day')) {
-            console.log('valid');
-        } else {
-            console.log('invalid');
-            setDisabled(true)
-            setAvailable("notavailable");
-            return;
-        }
+        // if (currentTime.isBefore(futureTime, 'day')) {
+        //     console.log('valid');
+        // } else if (currentTime.isSame(futureTime, 'day')) {
+        //     console.log('valid');
+        // } else {
+        //     console.log('invalid');
+        //     setDisabled(true)
+        //     setAvailable("notavailable");
+        //     return;
+        // }
 
 
         console.log(date);
@@ -154,6 +159,13 @@ const RoomDetails = () => {
             })
 
     }
+
+
+    const handleDateChange1 = (event) => {
+        setSelectedDate(event.target.value);
+        handleDateChange(event.target.value)
+        setValidation(event.target.value)
+    };
 
 
     return (
@@ -228,11 +240,26 @@ const RoomDetails = () => {
                             <span className="font-bold">Description: </span>
                             {room?.room_details}
                         </p>
-                        <input className="border-2 p-3 rounded-md" onChange={(e) => {
+
+
+
+                        {/* <input className="border-2 p-3 rounded-md" onChange={(e) => {
                             handleDateChange(e.target.value)
                             setValidation(e.target.value)
                         }
-                        } type="date" />
+                        } type="date" /> */}
+
+                        <input
+                            className="border-2 p-3 rounded-md"
+                            type="date"
+                            id="datePicker"
+                            name="datePicker"
+                            value={selectedDate}
+                            onChange={handleDateChange1}
+                            min={currentDate}
+                        />
+
+
                         <div>
                             <div className="space-y-4">
                                 <Modal
@@ -246,8 +273,8 @@ const RoomDetails = () => {
                                             <h2 className="text-2xl font-bold text-center">Confirm/Cancel(Click Outsite to cancel)</h2>
                                             <div>
                                                 <h2>{room.room_description}</h2>
-                                                <h3>Pricing: {room.price_per_night}</h3>
-                                                <p>Booking date: {sDate}</p>
+                                                <h3><span className="font-bold">Pricing:</span> ${room.price_per_night}</h3>
+                                                <p><span className="font-bold">Booking date:</span> {sDate}</p>
                                             </div>
                                             <button onClick={() => handleRoomBooking()} className="btn btn-secondary text-center">Confirm Booking</button>
                                         </div>
@@ -257,12 +284,12 @@ const RoomDetails = () => {
                                 {/* <Button className="btn btn-primary" onClick={handleOpen}>Book Now</Button> */}
                                 {
                                     !user ? <Link className="btn btn-error" to="/login">Login to Book</Link> :
-                                    disabled == true ?
-                                        <button className="btn w-1/2 mt-2" title="select date to enable" disabled>Book Now</button>
-                                        :
-                                        <button onClick={() => {
-                                            handleOpen()
-                                        }} className="btn w-1/2 btn-secondary mt-2">Book Now</button>
+                                        disabled == true ?
+                                            <button className="btn w-1/2 mt-2" title="select date to enable" disabled>Book Now</button>
+                                            :
+                                            <button onClick={() => {
+                                                handleOpen()
+                                            }} className="btn w-1/2 btn-secondary mt-2">Book Now</button>
 
                                 }
                             </div>
@@ -284,7 +311,7 @@ const RoomDetails = () => {
                         reviews.map(card => <ReviewCard key={card._id} card={card}></ReviewCard>)
                     }
 
-                    
+
                 </div>
             </div>
         </div>

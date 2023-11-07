@@ -18,16 +18,26 @@ import { useContext } from "react";
 import { GlobalContext } from "../../providers/GlobalProvider";
 import { Link } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
+import moment from "moment";
 
 
 
-const MyBookingCard = ({card, myBooking, setMyBooking}) => {
+const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
     const axios = useAxios();
     const [selDate, setSelDate] = useState("");
-    
-    const {_id, roomId, roomDescription, pricePerNight, bookingDate, roomImage, userEmail} = card || {};
+
+    const { _id, roomId, roomDescription, pricePerNight, bookingDate, roomImage, userEmail } = card || {};
     const [bookDate, setBookDate] = useState(bookingDate);
-    
+
+
+    const currentDate = new Date().toISOString().split('T')[0]; // Get current date in format 'YYYY-MM-DD'
+    const [selectedDate, setSelectedDate] = useState('');
+
+    const handleDateChange = (event) => {
+        setSelectedDate(event.target.value);
+        setSelDate(event.target.value + "");
+    };
+
 
     const { user } = useContext(GlobalContext);
     const [value, setValue] = useState(dayjs('2022-04-17'));
@@ -49,7 +59,7 @@ const MyBookingCard = ({card, myBooking, setMyBooking}) => {
     console.log(selDate);
 
 
-    
+    const [disable, setDisable] = useState(true);
     const handleUpdateDate = () => {
         const newDate = selDate;
         console.log(newDate);
@@ -59,25 +69,79 @@ const MyBookingCard = ({card, myBooking, setMyBooking}) => {
             headers: {
                 "content-type": "application/json"
             },
-            body: JSON.stringify({newDate, userEmail, id})
+            body: JSON.stringify({ newDate, userEmail, id })
         })
-        .then(response => response.json())
-        .then(res => {
-            if (res.modifiedCount > 0) {
-                toast.success("Updated successfully");
-                setBookDate(newDate+"");
-            }
-            console.log(res);
-        })
-        .catch(err => {
-            console.log(err);
-        })
+            .then(response => response.json())
+            .then(res => {
+                if (res.modifiedCount > 0) {
+                    toast.success("Updated successfully");
+                    setBookDate(newDate + "");
+                    setDisable(true)
+                }
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
 
         // toast.success('Updated successfully!')
     }
 
-    const handleCancel = (id) => {
-        // console.log(id);
+    
+    const handleDateChange1 = (e) => {
+        const date = e.target.value;
+        console.log(date);
+        fetch(`http://localhost:5555/api/v1/booking?date=${date}&id=${roomId}`)
+            .then(response => response.json())
+            .then(res => {
+                console.log(res);
+                if (res.result.length == 0) {
+                    toast.success(`Available on ${date}`)
+                    setDisable(false)
+                } else {
+                    toast.error('Not available')
+                    setDisable(true)
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                setDisable(true);
+            })
+            setDisable(true)
+    }
+
+    const handleCancel = () => {
+
+        // const currentTime = moment(new Date()); // Current time
+        // const booked = moment(currentTime).subtract(1, 'days')
+        // const futureTime = moment(validation); // A future time to compare with, replace it with your desired time
+
+        // if (currentTime.isBefore(futureTime, 'day')) {
+        //     console.log('valid');
+        // } else if (currentTime.isSame(futureTime, 'day')) {
+        //     console.log('valid');
+        // } else {
+        //     console.log('invalid');
+        //     setDisabled(true)
+        //     setAvailable("notavailable");
+        //     return;
+        // }
+
+        const validCancelDate = moment(bookDate).subtract(1, 'days')._d;
+        const currentTime = moment(new Date())
+        console.log('cancel:', validCancelDate, 'curr:', currentTime);
+        if ((currentTime.isBefore(validCancelDate, 'day'))) {
+            console.log('can cancel');
+        } else {
+            console.log('cant cancel');
+            toast.error('You can not cancel this booking. Tomorrow is your booking date');
+            return;
+        }
+
+
+
+
+        
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -92,15 +156,15 @@ const MyBookingCard = ({card, myBooking, setMyBooking}) => {
                 fetch(`http://localhost:5555/delete-review/${_id}`, {
                     method: 'DELETE'
                 })
-                .then(r => r.json())
-                .then(res => {
-                    console.log(res);
-                    if (res.deletedCount > 0) {
-                        toast.success('Deleted successfully');
-                        const filter = myBooking.filter(book => book._id != _id);
-                        setMyBooking(filter)
-                    }   
-                })
+                    .then(r => r.json())
+                    .then(res => {
+                        console.log(res);
+                        if (res.deletedCount > 0) {
+                            toast.success('Deleted successfully');
+                            const filter = myBooking.filter(book => book._id != _id);
+                            setMyBooking(filter)
+                        }
+                    })
 
 
             }
@@ -111,13 +175,15 @@ const MyBookingCard = ({card, myBooking, setMyBooking}) => {
     return (
         <div className="flex flex-col items-center justify-between md:flex-row border-[1.5px] rounded-lg p-3 shadow-lg">
             <div className="flex gap-6">
+
                 <div className="h-[200px] w-[300px] bg-gray-400 rounded-lg" >
                     <img className="h-[200px] w-[300px] rounded-lg" src={roomImage} alt="room img" />
                 </div>
                 <div className="space-y-3">
                     <Link to={`/rooms/${roomId}`} className="text-2xl">{roomDescription}</Link>
                     <p>Price(One Night): ${pricePerNight}</p>
-                    <p>Booking date: {bookDate}</p>
+                    {/* <p>Booking date: {bookDate}</p> */}
+                    <p>Booking: {moment(bookDate).format('ll')}</p>
                     <Link to={`/my-booking/review/add/${roomId}`} className="btn btn-primary">Your Review</Link>
                 </div>
             </div>
@@ -132,9 +198,29 @@ const MyBookingCard = ({card, myBooking, setMyBooking}) => {
                         <div className="flex flex-col space-y-5 my-10">
                             <h2 className="text-2xl font-bold text-center">Update Booking Date</h2>
                             <div>
-                                <input onChange={(e) => setSelDate(e.target.value + "")} type="date" />
+
+                                <div>
+                                    <input
+                                        type="date"
+                                        id="datePicker"
+                                        name="datePicker"
+                                        value={selectedDate}
+                                        onChange={ (e) => {
+                                            handleDateChange(e);
+                                            handleDateChange1(e)
+
+                                        }}
+                                        min={currentDate}
+                                    />
+                                </div>
+                                {/* <input onChange={(e) => setSelDate(e.target.value + "")} type="date" /> */}
                             </div>
-                            <button onClick={() => handleUpdateDate()} className="btn btn-secondary text-center">Update Date</button>
+                            {
+                                disable ? 
+                                <button className="btn btn-secondary text-center" disabled>Update Date</button> :
+                                <button onClick={() => handleUpdateDate()} className="btn btn-secondary text-center">Update Date</button>
+                            }
+                            
                         </div>
 
                     </Box>
