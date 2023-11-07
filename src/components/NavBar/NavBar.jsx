@@ -56,8 +56,7 @@ const NavBar = () => {
             }
             {
                 user ?
-                    <li className="flex items-center gap-2">
-                        <span>{user?.displayName}</span>
+                    <li className="flex lg:items-center gap-2 mt-4 lg:mt-0">
                         <Link onClick={handleLogOut} className="px-4 py-3 bg-[#db332a] rounded-full normal-case flex gap-1 text-white border-none hover:bg-[#b5100b] hover:text-white">
                             <AiOutlineLogout className="text-2xl"></AiOutlineLogout>
                             <span>Logout</span>
@@ -65,7 +64,10 @@ const NavBar = () => {
                     </li> : ''
             }
             { user ?
-                    <img className="rounded-full w-14 h-14" src={user.photoURL} alt="profile" />
+                    <div className="flex flex-col-reverse items-center mt-5 lg:mt-0">
+                        <span className="text-[12px]">{user?.displayName}</span>
+                        <img className="rounded-full w-12 h-12" src={user.photoURL} alt="profile" />
+                    </div>
                 : ''
             }
 

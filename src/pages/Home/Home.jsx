@@ -7,7 +7,7 @@ import 'aos/dist/aos.css';
 import AOS from "aos";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
-
+/* solve any scrollbar of aos package using overflowhidden */
 
 const Home = () => {
 
@@ -17,14 +17,20 @@ const Home = () => {
 
 
     return (
-        <div>
+        <div className="w-[85%] md:w-[100%] mx-auto">
             <Helmet>
                 <title>Home - Hotel Booking</title>
             </Helmet>
-            <Sliders></Sliders>
-            <NewsLetter data-aos="fade-up"></NewsLetter>
-            <FeaturedRoom></FeaturedRoom>
-            <Testimonials></Testimonials>
+            <div className="w-[vw]">
+                <div className="lg:max-w-[1280px] mx-auto">
+                <Sliders></Sliders>
+                </div>
+                <div className="md:w-[80%] lg:max-w-[1280px] mx-auto">
+                    <NewsLetter></NewsLetter>
+                    <FeaturedRoom></FeaturedRoom>
+                    <Testimonials></Testimonials>
+                </div>
+            </div>
         </div>
     );
 };

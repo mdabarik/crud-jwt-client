@@ -29,7 +29,7 @@ const Testimonials = () => {
     }, []);
 
     return (
-        <div className="my-10" data-aos="flip-up">
+        <div className="my-10" data-aos="zoom-in">
             {/* Rooms */}
             <div className="my-8">
                 <div className="flex flex-col items-center justify-center my-4">

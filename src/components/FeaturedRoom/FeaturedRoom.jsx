@@ -11,7 +11,9 @@ const FeaturedRoom = () => {
     const [rooms, setRooms] = useState([]);
 
     useEffect(() => {
-        AOS.init()
+        AOS.init({
+            offset: 200
+        })
     }, [])
 
     useEffect(() => {
@@ -25,12 +27,12 @@ const FeaturedRoom = () => {
 
 
     return (
-        <div className="my-8" data-aos="fade-up" >
+        <div className="my-8" data-aos="zoom-in" >
             {/* Rooms */}
             <div className="my-8">
                 <div className="flex flex-col items-center justify-center my-4">
                     <h2 className="text-2xl font-bold text-center">Featured Rooms</h2>
-                    <p className="text-center">Get the best deals and suitable affordable rooms</p>
+                    <p className="text-center text-sm">Get the best deals and suitable affordable rooms</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {

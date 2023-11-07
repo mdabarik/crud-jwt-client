@@ -19,7 +19,7 @@ const MainLayout = () => {
                     <div className="flex-1 px-2 mx-2">
                         <Link className="flex items-center justify-center gap-4" to="/">
                             <img className="h-[46px]" src={Logo} alt="Logo" />
-                            <span className="font-bold text-2xl">Hotel Booking</span>
+                            <span className="font-bold md:text-2xl">Hotel Booking</span>
                         </Link>
                     </div>
                     <div className="flex-none hidden lg:block">
@@ -30,8 +30,8 @@ const MainLayout = () => {
                     </div>
                 </div>
                 {/* Page content here */}
-                <div className="bg-[#f8f8ff]">
-                    <div className="container mx-auto">
+                <div className="bg-[#f8f8ff] ">
+                    <div className="w-[100vw] overflow-hidden mx-auto">
                         <Outlet></Outlet>
                     </div>
                 </div>

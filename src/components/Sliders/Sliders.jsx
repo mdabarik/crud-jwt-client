@@ -36,7 +36,7 @@ const Sliders = () => {
     }, []);
 
     return (
-        <div className='w-full h-[500px]' data-aos="zoom-in">
+        <div className='w-[100%] lg:w-full h-[500px] relative z-0' data-aos="zoom-in">
             <Swiper
                 loop={true}
                 spaceBetween={30}
