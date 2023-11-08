@@ -53,7 +53,7 @@ const AddReview = () => {
     const [notAuthorized, setNotAuthorized] = useState(false);
     const [load, setLoad] = useState(true);
     useEffect(() => {
-        fetch(`http://localhost:5555/review/checking?email=${user?.email}&id=${params.id}`, {
+        fetch(`https://crud-jwt-server.vercel.app/review/checking?email=${user?.email}&id=${params.id}`, {
             credentials: 'include'
         })
         .then(res => res.json())

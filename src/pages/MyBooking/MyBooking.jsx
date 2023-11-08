@@ -16,7 +16,7 @@ const MyBooking = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:5555/api/v1/all-booking?email=${user?.email}`, {
+        fetch(`https://crud-jwt-server.vercel.app/api/v1/all-booking?email=${user?.email}`, {
             credentials: 'include'
         })
             .then(res => {

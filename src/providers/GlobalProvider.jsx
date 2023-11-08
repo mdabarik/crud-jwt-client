@@ -53,7 +53,7 @@ const GlobalProvider = ({ children }) => {
                     email: currUser.email,
                     name: currUser.displayName
                 }
-                fetch('http://localhost:5555/jwt', {
+                fetch('https://crud-jwt-server.vercel.app/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -64,7 +64,7 @@ const GlobalProvider = ({ children }) => {
                     .then(res => res.json())
             } else {
                 // logout fetch request
-                fetch('http://localhost:5555/logout', {
+                fetch('https://crud-jwt-server.vercel.app/logout', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

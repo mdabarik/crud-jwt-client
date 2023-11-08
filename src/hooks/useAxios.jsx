@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { GlobalContext } from "../providers/GlobalProvider";
 
 const instance = axios.create({
-    baseURL: 'http://localhost:5555',
+    baseURL: 'https://crud-jwt-server.vercel.app',
     withCredentials: true
 })
 

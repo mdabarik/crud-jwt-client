@@ -17,7 +17,7 @@ const FeaturedRoom = () => {
     }, [])
 
     useEffect(() => {
-        // http://localhost:5555/api/v1/rooms?filterByPrice=0-100&sortField=price_per_night&sortOrder=asc
+        // https://crud-jwt-server.vercel.app/api/v1/rooms?filterByPrice=0-100&sortField=price_per_night&sortOrder=asc
         const url = `/api/v1/rooms?filterByPrice=0-1000&sortField=price_per_night&sortOrder=desc`;
         axios.get(url)
             .then(res => {

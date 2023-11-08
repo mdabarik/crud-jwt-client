@@ -23,7 +23,7 @@ const Login = () => {
     //         email: user?.email,
     //         name: user?.displayName
     //     }
-    //     fetch('http://localhost:5555/jwt', {
+    //     fetch('https://crud-jwt-server.vercel.app/jwt', {
     //         method: 'POST',
     //         headers: {
     //             'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ const Login = () => {
     //     email: user?.email,
     //     name: user?.displayName
     // }
-    // fetch('http://localhost:5555/jwt', {
+    // fetch('https://crud-jwt-server.vercel.app/jwt', {
     //     method: 'POST',
     //     headers: {
     //         'Content-Type': 'application/json'

@@ -26,7 +26,7 @@ const Sliders = () => {
     const [sliders, setSliders] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5555/api/v1/sliders", {credentials: 'include'})
+        fetch("https://crud-jwt-server.vercel.app/api/v1/sliders", {credentials: 'include'})
             .then(res => res.json())
             .then(data => {
                 setSliders(data);

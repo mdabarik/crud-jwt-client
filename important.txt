@@ -1,13 +1,13 @@
-http://localhost:5555
-http://localhost:5555
-http://localhost:5555
+https://crud-jwt-server.vercel.app
+https://crud-jwt-server.vercel.app
+https://crud-jwt-server.vercel.app
 
 
-http://localhost:5555
-http://localhost:5555
-http://localhost:5555
+https://crud-jwt-server.vercel.app
+https://crud-jwt-server.vercel.app
+https://crud-jwt-server.vercel.app
 
 
-http://localhost:5555
-http://localhost:5555
-http://localhost:5555
+https://crud-jwt-server.vercel.app
+https://crud-jwt-server.vercel.app
+https://crud-jwt-server.vercel.app

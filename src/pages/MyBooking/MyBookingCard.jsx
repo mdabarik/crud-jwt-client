@@ -68,7 +68,7 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
         const newDate = selDate;
         console.log(newDate);
         const id = _id;
-        fetch("http://localhost:5555/update-date", {
+        fetch("https://crud-jwt-server.vercel.app/update-date", {
             method: 'PATCH',
             headers: {
                 "content-type": "application/json"
@@ -99,7 +99,7 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
 
         let availableRoom = 10; // default value
         // /api/v1/rooms/:id
-        fetch(`http://localhost:5555/api/v1/rooms/${roomId}`, {
+        fetch(`https://crud-jwt-server.vercel.app/api/v1/rooms/${roomId}`, {
             credentials: 'include'
         })
             .then(res => res.json())
@@ -111,7 +111,7 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
 
         const date = e.target.value;
         console.log(date);
-        fetch(`http://localhost:5555/api/v1/booking?date=${date}&id=${roomId}`, {
+        fetch(`https://crud-jwt-server.vercel.app/api/v1/booking?date=${date}&id=${roomId}`, {
             credentials: 'include'
         })
             .then(response => response.json())
@@ -177,8 +177,8 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
             confirmButtonText: 'Confirm'
         }).then((result) => {
             if (result.isConfirmed) {
-                // http://localhost:5555/api/v1/review/delete?userEmail=mdabarik19@gmail.com&roomId=141808iufofjaldkfjh
-                fetch(`http://localhost:5555/delete-review/${_id}`, {
+                // https://crud-jwt-server.vercel.app/api/v1/review/delete?userEmail=mdabarik19@gmail.com&roomId=141808iufofjaldkfjh
+                fetch(`https://crud-jwt-server.vercel.app/delete-review/${_id}`, {
                     method: 'DELETE',
                     credentials: 'include'
                 })
