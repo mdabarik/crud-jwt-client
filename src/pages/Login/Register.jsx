@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { CiLogin } from "react-icons/ci";
 import { FcGoogle } from "react-icons/fc";
 import { useContext } from "react";
@@ -18,8 +18,7 @@ const Register = () => {
     const { googleSignIn } = useContext(GlobalContext);
 
     if (user) {
-        navigate("/");
-        return;
+        return <Navigate to="/" />
     }
 
     const [errorMsg, setErrorMsg] = useState('');
@@ -61,10 +60,14 @@ const Register = () => {
                     }
                 })
 
+                navigate('/rooms')
+                navigate('/')
+
                 logOut();
                 loginUser(email, password)
                     .then(userCred => {
                         console.log(userCred.user);
+                        // navigate('/')
                     })
                     .catch(err => {
                         console.log(err);
@@ -86,13 +89,12 @@ const Register = () => {
             .then(res => {
                 console.log(res, 'res');
                 // jwt token
-                useAxios.post('/jwt', { email: user?.email, name: user?.displayName })
-                    .then(response => {
-                        console.log(response.data, 'axios');
-                    })
+                // useAxios.post('/jwt', { email: user?.email, name: user?.displayName })
+                //     .then(response => {
+                //         console.log(response.data, 'axios');
+                //     })
 
                 toast.success('Google SignIn Successfull')
-                navigate('/');
             })
             .catch(err => {
                 setErrorMsg(err.code);

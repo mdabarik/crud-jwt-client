@@ -43,8 +43,8 @@ const GlobalProvider = ({ children }) => {
     useEffect(() => {
 
         const unsubscribe = onAuthStateChanged(firebaseAuth, currUser => {
-            setLoading(false);
             setUser(currUser);
+            setLoading(false);
             console.log(currUser);
 
             /*---------jwt----------*/

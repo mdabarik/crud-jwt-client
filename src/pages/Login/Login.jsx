@@ -45,9 +45,8 @@ const Login = () => {
     }
 
     if (user) {
-        navigate('/');
+        return <Navigate to="/" />
         // console.log('pathnamalkdjfladkjf');
-        return;
     }
 
 
@@ -59,7 +58,7 @@ const Login = () => {
             .then(res => {
                 toast.success("login succesfull");
                 console.log(res);
-                navigate('/');
+                // navigate('/');
             })
             .catch(err => {
                 setErrorMsg(err.code);
@@ -93,7 +92,7 @@ const Login = () => {
         googleSignIn()
             .then(res => {
                 console.log(res, 'res');
-                axios.post('/jwt', { email: user?.email, name: user?.displayName })
+                // axios.post('/jwt', { email: user?.email, name: user?.displayName })
                 toast.success('Google SignIn Successfull')
                 navigate('/');
             })
