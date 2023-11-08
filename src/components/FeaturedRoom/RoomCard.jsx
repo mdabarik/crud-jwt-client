@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 /** Rating **/
 import { Rating } from "@mui/material";
@@ -26,7 +26,7 @@ const RoomCard = ({ room }) => {
             <div>
                 <img className="w-full rounded-t-lg h-[200px] object-cover" src={room_images[0]} alt="room image" />
             </div>
-            <div className="w-full h-[100px] bg-white rounded-b-lg p-4 drop-shadow-md">
+            <div className="w-full min-h-[100px] bg-white rounded-b-lg p-4 drop-shadow-md">
                 <p>Price per night: ${price_per_night}</p>
                 <div className="flex items-center">
                     <Rating
@@ -38,6 +38,9 @@ const RoomCard = ({ room }) => {
                         readOnly
                     />
                     ({count_reviews} <span className="ml-2">reviews</span>)
+                </div>
+                <div className="flex items-center justify-center py-3">
+                    <Link to={`/rooms/${_id}`} className="mt-6 flex items-center justify-center w-full bg-[#db332a] py-3 px-6 text-center  text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Book Now</Link>
                 </div>
             </div>
 
