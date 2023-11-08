@@ -33,6 +33,13 @@ const NewsLetter = () => {
     }, [])
 
     const handleNewsletter = () => {
+
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regex.test(email)) {
+            toast.error('Invalid email. Please enter valid email.');
+            return;
+        }
+
         console.log(email, name);
         axios.put("/api/v1/newsletter", {email, name})
         .then(res => {
@@ -61,7 +68,7 @@ const NewsLetter = () => {
                     <div className="absolute top-0 left-0 w-full h-[400px] text-white flex items-center flex-col justify-center">
                         <h1 className="text-2xl md:text-4xl font-semibold text-gray-200 uppercase my-4">Enter Your Email</h1>
                         <div className="flex flex-col space-y-2 w-[60%]">
-                            <input onChange={e => setEmail(e.target.value)} className="text-gray-400 rounded-xl bg-white px-6 py-4 w-full" type="email" placeholder="Email" />
+                            <input onChange={e => setEmail(e.target.value)} className="text-gray-400 rounded-xl bg-white px-6 py-4 w-full" type="email" placeholder="Email" required />
                             <button onClick={handleNewsletter} className="px-4 py-3 bg-[#db332a] hover:bg-[#c3342d] rounded-lg white font-bold w-full uppercase flex items-center justify-center">
                                 <LuMailPlus className="text-xl"></LuMailPlus>
                                 <span className="ml-2">Subscribe</span>

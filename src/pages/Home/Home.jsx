@@ -26,8 +26,8 @@ const Home = () => {
                 <Sliders></Sliders>
                 </div>
                 <div className="md:w-[80%] lg:w-[100%] lg:max-w-[1280px] mx-auto">
-                    <NewsLetter></NewsLetter>
                     <FeaturedRoom></FeaturedRoom>
+                    <NewsLetter></NewsLetter>
                     <Testimonials></Testimonials>
                 </div>
             </div>
