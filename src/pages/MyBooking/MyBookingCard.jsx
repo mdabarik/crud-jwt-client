@@ -73,7 +73,8 @@ const MyBookingCard = ({ card, myBooking, setMyBooking }) => {
             headers: {
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ newDate, userEmail, id })
+            body: JSON.stringify({ newDate, userEmail, id }),
+            credentials: 'include'
         })
             .then(response => response.json())
             .then(res => {

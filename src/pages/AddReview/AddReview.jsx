@@ -53,7 +53,9 @@ const AddReview = () => {
     const [notAuthorized, setNotAuthorized] = useState(false);
     const [load, setLoad] = useState(true);
     useEffect(() => {
-        fetch(`http://localhost:5555/review/checking?email=${user?.email}&id=${params.id}`)
+        fetch(`http://localhost:5555/review/checking?email=${user?.email}&id=${params.id}`, {
+            credentials: 'include'
+        })
         .then(res => res.json())
         .then(data => {
             console.log(user.email, params.id);
@@ -115,7 +117,7 @@ const AddReview = () => {
 
             
 
-        axios.patch(`/update-room/${params.id}`, {rating})
+        axios.patch(`/update-room/${params.id}`, {rating}, {withCredentials: true})
         .then(res => {
             console.log(res?.data);
         })

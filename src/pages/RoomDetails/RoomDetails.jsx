@@ -78,7 +78,7 @@ const RoomDetails = () => {
     const [reviews, setReviews] = useState([]);
     useEffect(() => {
         // userEmail=mdabarik19@gmail.com&roomId=65480a5e9b625d184f24e99d
-        fetch(`http://localhost:5555/reviews/${params.id}`)
+        fetch(`http://localhost:5555/reviews/${params.id}`,{credentials:'include'})
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -149,7 +149,7 @@ const RoomDetails = () => {
         setSDate(date);
         setAvailable('notavailable');
         setDisabled(true);
-        fetch(`http://localhost:5555/api/v1/booking?date=${date}&id=${id}`)
+        fetch(`http://localhost:5555/api/v1/booking?date=${date}&id=${id}`, {credentials: 'include'})
             .then(response => response.json())
             .then(res => {
                 console.log('available room', room.available_rooms, 'booked room', res.result.length, 'diff', parseInt(room.available_rooms) - res.result.length);
