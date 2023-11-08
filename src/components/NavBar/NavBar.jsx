@@ -80,7 +80,7 @@ const NavBar = () => {
             { user ?
                     <div className="flex flex-col-reverse items-center mt-5 lg:mt-0">
                         <span className="text-[12px]">{user?.displayName}</span>
-                        <img className="rounded-full w-12 h-12" src={user.photoURL} alt="profile" />
+                        <img className="rounded-full w-12 h-12 object-cover" src={user.photoURL} alt="profile" />
                     </div>
                 : ''
             }
