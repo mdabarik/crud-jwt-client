@@ -60,8 +60,7 @@ const Register = () => {
                     }
                 })
 
-                navigate('/rooms')
-                navigate('/')
+                
 
                 logOut();
                 loginUser(email, password)
@@ -72,6 +71,8 @@ const Register = () => {
                     .catch(err => {
                         console.log(err);
                     })
+                    navigate('/rooms')
+                navigate('/')
             })
             .catch(error => {
                 if (error.code === "auth/email-already-in-use") {
